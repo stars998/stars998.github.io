@@ -1,0 +1,1288 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="javaSE学习笔记, 勾魂大猩猩">
+    <meta name="description" content="javase
+
+时间日期类
+java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）
+Date()类的构造方法：
+    Public Date()&amp;#123;…&amp;#125;
+    作用：获得保存“">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>javaSE学习笔记 | 勾魂大猩猩</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">勾魂大猩猩</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">勾魂大猩猩</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">javaSE学习笔记</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/javaSE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">javaSE学习笔记</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-08-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1><center>javase<center>
+
+<h2 id="时间日期类"><a href="#时间日期类" class="headerlink" title="时间日期类"></a>时间日期类</h2><ul>
+<li><pre><code class="java">java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）
+Date()类的构造方法：
+    Public Date()&#123;…&#125;
+    作用：获得保存“当前时间”的Date对象。
+    Public Date(long date) &#123;….&#125;
+作用：获得保存“指定时间”的Date 对象（表示的就是“指定时间”距离1970年1月1日凌晨的毫秒数）
+    
+Date()类的成员方法：
+    Long getTime();返回当前时间距离1970年1月1日凌晨的毫秒数。（获得时间）
+    void setTime(long time);使用给指定的毫秒时间值设置现有的Date对象。（修改时间）
+    
+SimpleDateFormat 类的引入
+Java.text.SimpleDateFormat类属于DateFormat抽象类的实现类，开发中用来实现“Date对象”保存时间和“字符串”保存时间之间的相互转换。
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 时间转换格式</span><br><span class="line"></span><br><span class="line">  ```Java</span><br><span class="line">  	当出现y时，会将y替换成年。</span><br><span class="line">  	当出现M时，会将M替换成月。</span><br><span class="line">  	当出现d 时，会将d替换成日。</span><br><span class="line">  	当出现h时，会将h替换成时(12小时制)。</span><br><span class="line">  	当出现H时，会将H替换成时(24小时制)。</span><br><span class="line">  	当出现m时，会将m替换成分。</span><br><span class="line">  	当出现s 时，会将s替换成秒。</span><br><span class="line">  	当出现s 时，会将s替换成毫秒。</span><br><span class="line">  	当出现D时，获得当前时间是今年的第几天。</span><br><span class="line">  	当出现w时，获得当前时间是今年的第几周。</span><br><span class="line">  	当出现w时，获得当前时间是本月的第几周。</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>时间类的构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SimpleDateFormat类的构造方法：</span><br><span class="line">	Public SimpleDateFormat（String pattern）&#123;…&#125;</span><br><span class="line">	作用：实例化SimpleDateFormat对象，并且还能设置指定的格式规则</span><br><span class="line">	</span><br><span class="line">Public SimpleDateFormat类的成员方法：（重点方法）</span><br><span class="line">	Public <span class="keyword">final</span> String <span class="title function_">format</span><span class="params">(Date date)</span>&#123;…&#125;</span><br><span class="line">	作用：把Date对象保存的时间转换为字符串保存时间。</span><br><span class="line">	Public Date <span class="title function_">parse</span><span class="params">(String source)</span> <span class="keyword">throws</span> ParseException&#123;…&#125;</span><br><span class="line">	作用：把字符串保存的时间转换为Date对象保存的时间</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间日期的其他常用类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Calendar类（日历类）</span><br><span class="line">	Java,util.Calendar类，通过Calendar可以表示年、月、日、是、分、秒的一个具体时间，而且还提供了日期相关的计算功能。</span><br><span class="line">Calendar类的实例化？？？</span><br><span class="line">	Calendar类是一个抽象类，无法实例化，而是调用Calendar类的“Calendar <span class="title function_">getInstance</span><span class="params">()</span>”静态方法来获得一个保存“当前时间”的Calendar对象。</span><br><span class="line">Calendaer 类提供的字段？？</span><br><span class="line">	Calendaer 类中提供的字段，默认全部是<span class="type">int</span>类型的“全局静态常量”。</span><br><span class="line">	calendar. YEAR获取年份</span><br><span class="line">	calendar . MONTH获取月份，o表示<span class="number">1</span>月，<span class="number">1</span>表示<span class="number">2</span>月，...，<span class="number">11</span>表示<span class="number">12</span>月</span><br><span class="line">	calendar . DAY_OF_MONTH获取本月的第几天</span><br><span class="line">	calendar . DAY_OF_YEAR获取本年的第几天</span><br><span class="line">	calendar . HOUR_OF_DAY 小时，<span class="number">24</span>小时制calendar. HOUR小时，<span class="number">12</span>小时制</span><br><span class="line">	calendar.MINUTE 获取分钟</span><br><span class="line">	calendar.sECOND获取秒</span><br><span class="line">	calendar.MILLISECOND获取毫秒</span><br><span class="line">	calendar .DAY_OF_WEEK 获取星期几，<span class="number">1</span>表示星期日，<span class="number">2</span>表示星期一，...，<span class="number">7</span>表示星期</span><br><span class="line">	六</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间日期的计算及转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">计算的方法：</span><br><span class="line">	Public <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> field,<span class="type">int</span> amount)</span>&#123;…&#125;根据字段来“增加”或“减少”数据（在“年或月..”增加或者减少多少）。</span><br><span class="line">转换方法：</span><br><span class="line">	明确：开放中，经常设计到Date对象保存时间和Calendar对象保存时间之间的相互转换。</span><br><span class="line">	Public <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">setTime</span><span class="params">(Date date)</span>&#123;…&#125;</span><br><span class="line">	作用：把Date对象保存时间转换为calendar对象保存的时间</span><br><span class="line">	</span><br><span class="line">	Public <span class="keyword">final</span> Date <span class="title function_">getTime</span><span class="params">()</span>&#123;…&#125;</span><br><span class="line">	作用：把calendar对象保存的时间转换成date对象保存的时间</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="枚举（enum）"><a href="#枚举（enum）" class="headerlink" title="枚举（enum）"></a>枚举（enum）</h2><ul>
+<li><pre><code class="java">1.枚举语法：
+    [修饰符] enum 枚举名｛
+        枚举值1，枚举值2，枚举值3，…..
+    ｝
+使用语法：枚举名.枚举值
+    注意：在switch选择结构中，我们使用“枚举值”的时候必须省略“枚举名”。
+1.枚举的底层？
+    在Java中枚举本质上就是一个被final修饰的类，并且继承了Java.long.Enum抽象类
+    **类型的枚举中的所有枚举值，默认都是**类型的全局静态常量。
+    
+    对枚举进行反编译，发现枚举中还提供了values（）的全局静态方法，调用该方法就能返回枚举中的所有枚举值（用数组来存储）。
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 常用的API</span><br><span class="line"></span><br><span class="line">- System的常用方法：</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">  	数组拷贝：static void arraycopy(object src，int srcPos，object dest，       			int destPos，int length)</span><br><span class="line">  	</span><br><span class="line">  	输出当前时间的毫秒数：static long currentTimeMillis();</span><br><span class="line">  	</span><br><span class="line">  	终止当前程序，退出Java虚拟机：static void exit(int s);(当s等于0时退出)</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><p>String类的常用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">charAt(<span class="type">int</span> index) </span><br><span class="line">	返回指定索引处的 <span class="type">char</span> 值</span><br><span class="line">concat(String str)</span><br><span class="line">       将指定字符串连接到此字符串的结尾</span><br><span class="line">contains(CharSequence s)</span><br><span class="line">       判断是否包含次字符串：</span><br><span class="line">copyValueOf(<span class="type">char</span>[] data)</span><br><span class="line">       返回数组中表示次字符的字符串</span><br><span class="line">copyValueOf(<span class="type">char</span>[] data, <span class="type">int</span> offset, <span class="type">int</span> count)</span><br><span class="line">       返回数组中指定下标的字符串</span><br><span class="line">endsWith(String suffix)</span><br><span class="line">       判断字符串是否以 指定字符串结尾</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Math类的常用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Math.PI;</span><br><span class="line">	取圆周率：</span><br><span class="line">Math.abs(基本数据类型 a);</span><br><span class="line">	取绝对值：</span><br><span class="line">Math.cbrt(<span class="type">double</span> a);</span><br><span class="line">	立方根：</span><br><span class="line">Math.ceil(<span class="type">double</span> a);</span><br><span class="line">	向上取整：</span><br><span class="line">Math.floor(<span class="type">double</span> a);</span><br><span class="line">	向下取整：</span><br><span class="line"> Math.max(<span class="type">int</span> a,<span class="type">int</span> b);</span><br><span class="line">	取两个数中的最大值：</span><br><span class="line">Math.min(<span class="type">int</span> a,<span class="type">int</span> b);</span><br><span class="line">	取两个数中的最小值</span><br><span class="line">Math.random();</span><br><span class="line">	[<span class="number">0</span>，<span class="number">1</span>)之间的随机数</span><br><span class="line">Math.round(<span class="type">double</span> a);</span><br><span class="line">	四舍五入：</span><br><span class="line">Math.round(<span class="type">float</span> a);</span><br><span class="line">	四舍五入：</span><br><span class="line">（<span class="type">long</span>）Math.fioor(数值+<span class="number">0.5</span>)</span><br><span class="line">	注意：四舍五入的计算规则：</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>UUID类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">表示通用的唯一标识符（UUID）类。表示一个<span class="number">128</span>位的值</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
+<li><pre><code class="Java">就是方法体中直接或间接的调用方法自身
+
+使用递归：
+    1.必须创建方法。
+    2.必须有结束条件，（不然就会形成死递归，导致栈溢出）。
+    3.构造函数不能使用递归。
+    
+递归的思想：
+    将一个大的问题拆分成几个小问题，所有小问题解决了，大问题就解决了。
+注意：循环能够解决的问题递归一定能够解决，反之则不一定。
+如果循环嵌套层次过多，则可以使用递归，但是递归效率比循环效率更低。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 集合</span><br><span class="line"></span><br><span class="line">- 集合Collection接口的继承结构图：</span><br><span class="line"></span><br><span class="line">  ![list.png](D:\course11\note\jpg\list.png)</span><br><span class="line"></span><br><span class="line">- LinkedList类</span><br><span class="line"></span><br><span class="line">  - 实现的接口：</span><br><span class="line">    - collection接口，List接口，Deque接口（双端队列）</span><br><span class="line"></span><br><span class="line">- 链表之单向链表</span><br><span class="line"></span><br><span class="line">  - 一个节点由数据位和地址位组成，数据位就是存储元素，地址位就是下一个节点的地址。</span><br><span class="line"></span><br><span class="line">    ![linked1](D:\course11\note\jpg\linkde1.png)</span><br><span class="line"></span><br><span class="line">- 链表之双向链表</span><br><span class="line"></span><br><span class="line">  - 一个节点由两个地址位和一个数据位，数据位存储元素，地址位一个地址位指向前一个节点的地址，一个指向下一个节点的地址。</span><br><span class="line"></span><br><span class="line">    ![linkde2](D:\course11\note\jpg\linkde2.png)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- 链表的特点：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    1.链表是由节点链接而成的
+    2.链表在内存中不是一段连续的内存空间，添加一个节点就在内存中新开一个空间存储节点
+    3.链表的增删效率高，查改的效率低。
+    4.非线程安全，安全性低，效率高。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- Vector类：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    向量类
+    1.List的实现类
+    2.底层数据结构：动态数组
+    3.增删效率低，查改效率高
+    4.线程安全的，安全性高，效率低（几乎不用）
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- 泛型（genericity）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+泛型：又叫参数化类型，就是应用数据类型作为参数了。（泛型也有形参和实参）
+    泛型的形参：仅仅表示这是一个泛型，没有具体的数据类型。（可以用 E T…）
+    泛型的实参：在创建对象时定义实参，约束集合的数据类型。
+注意：只有引用数据类型才能作为泛型。
+    
+泛型的作用：约束集合中的元素的数据类型，将元素类型的检测从运行时提升到编译时。
+
+泛型的方法：（该方法没什么实际运用，了解语法即可）
+    泛型方法的定义上一定有&lt;泛型的形参&gt;的方法才是泛型方法
+    
+泛型方法的语法格式：
+    修饰符 &lt;泛型&gt; 返回值类型  方法名（参数列表）｛｝
+    
+泛型通配符：？（没什么鸟用，了解即可）
+    &lt;?&gt;这里的？就是泛型通配符。
+    泛型通配符？：表示所有泛型实参，就是可以表示泛型所有的具体类型
+    &lt;E&gt;：这里的E表示的是泛型所有的形参。
+    
+泛型通配符主要配合泛型的限定来使用
+泛型的限定：
+    上限：&lt;? extends T&gt; 表示？只能是T类及其子类
+    下限：&lt;? super T&gt;表示？只能是T类及其父类
+    注意：T 表示一个类（自定义类也行）
+    
+泛型擦除：
+    源代码中使用的泛型，在经过编译后，代码中就看不大泛型，就是泛型擦除。
+（泛型擦除不是泛型丢失了，而是在编译后的字节码文件中使用单独的标识来存储泛型了）
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- set接口</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+是collection接口的子接口。
+特点：元素不能重复，元素重复是否有序和实现类有关。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- HashSet</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+HsahSet是set接口的实现类。
+1.元素不能重复
+2.元素无序，特别是它不保证该顺序恒久不变。
+3.底层的数据结构是HashMap&lt;k,v&gt;,HashMap的底层结构是哈希表
+
+哈希表：也叫散列表，是根据关键码值（key）而直接进行访问的数据结构
+哈希表是一个数组。
+哈希表中的数据会产生哈希冲突（碰撞）
+哈希冲突：不同的key，hashCode值一样，哈希表中的索引就一样，这就是哈西冲突。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- LinedHashSet类</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+是HashSet的子类
+    底层为 链表+哈希表
+特点：元素唯一且有序。
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- TreeSet类</span><br><span class="line"></span><br><span class="line">  ```Java</span><br><span class="line">  1.TreeSet类是set接口的实现类</span><br><span class="line">  2.treeSet元素不重复</span><br><span class="line">  3.底层结构是TreeSetMap，treeMap的底层是红黑树</span><br><span class="line">  4.treeSet是根据元素进行排序</span><br><span class="line">  	排序方法：</span><br><span class="line">  	 1.使用自然排序接口（Comparable）实现排序</span><br><span class="line">  			需要元素类实现该接口并且（添加泛型），才能实现排序功能</span><br><span class="line">  			（设置排序规则：返回值&lt; 0 倒序，返回值 = 0 元素相同，返回值 &gt; 0 正序）</span><br><span class="line">  		缺点：扩展性差，不易修改</span><br><span class="line">  		</span><br><span class="line">  	2.使用比较器排序接口（Comparator）实现排序：</span><br><span class="line">  			不需要元素类实现该接口，需要构造一个类实现该接口，在构造的类中写入比较条件。</span><br><span class="line">  		优点：和比较的类解耦合，满足ocp原则，可以做多种排序要求。</span><br><span class="line">  		</span><br><span class="line">  	注意：当利用无参构造创建对象时，调用的是自然排序。用有参构造new了一个比较器时，调用比较器排序。</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+<li><p>Map&lt;K,V&gt;接口</p>
+<p>​		HashMap实现类 , Hashtable实现类 , TreeMap实现类</p>
+<p>map的结构继承图：</p>
+<p><img src="D:\course11\note\jpg\map.png" alt="map"></p>
+<p>注意:根据以上的继承关系我们知道Map接口和Collection接口是没有关系的。</p>
+<p>但是在开发中我们还是把Map叫做Map集合;因为Map接口也是java集合框架的成员。</p>
+<p>此接口是Java Collections Framework的成员。</p>
+</li>
+<li><p>HashMap类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.是Map 接口的实现类</span><br><span class="line">2.底层是哈希表</span><br><span class="line">3.线程不安全的，安全性低，效率高</span><br><span class="line">4.允许使用null键，null值。</span><br><span class="line">	</span><br><span class="line">哈希表中的数组初始容量是16</span><br><span class="line">当Map中的元素达到容量的0.75倍就会扩容。</span><br><span class="line">0.75是map的负载因子。这个数在时间和空间上都是相对最合适的</span><br><span class="line">扩容：新容量=旧容量的2倍。</span><br><span class="line">容量必须满足：&lt;= 2的30次方。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LinkdHashMap类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">保证了存储元素时的有序性。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>TreeMap类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.是Map接口的实现类</span><br><span class="line">2.底层是红黑树。</span><br><span class="line">3.红黑树的数据结构是约束key的</span><br><span class="line">4.可以对Map中的key排序</span><br><span class="line">也有“自然排序”和“比较器排序”两种。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><p>​	IO流的思维导图：</p>
+<p><img src="D:\course11\note\jpg\io.png" alt="io"></p>
+<p>io流的引入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">我们要将数据以文件的形式永久的保存到硬盘上，而要将数据写入文件中；或者从文件中读取数据，就需要使用io流</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">IO流：</span></span><br><span class="line"><span class="comment">	io：输入输出</span></span><br><span class="line"><span class="comment">	流：数据流，连续不断的数据</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">IO流的分类：</span></span><br><span class="line"><span class="comment">根据流向的不同分为：</span></span><br><span class="line"><span class="comment">	输入流：读数据，将数据读取到程序中</span></span><br><span class="line"><span class="comment">	输出流：写数据，将程序中的数据写到文件中</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">根据操作数据的不同分为：</span></span><br><span class="line"><span class="comment">	字节流：按照字节为单位写数据</span></span><br><span class="line"><span class="comment">	字符流：按照字符为单位写数据</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">四大基本抽象流：</span></span><br><span class="line"><span class="comment">	字节输入流(InputStream)：按照字节为单位读数据</span></span><br><span class="line"><span class="comment">    	表示所有输出字节流的超类</span></span><br><span class="line"><span class="comment">	字节输出流(outputstream) :按照字节为单位写数据</span></span><br><span class="line"><span class="comment">    	表示所有输入字节流的超类</span></span><br><span class="line"><span class="comment">	字符输入流(Reader):按照字符为单位读数据</span></span><br><span class="line"><span class="comment">	字符输出流(writer):按照字符为单位写数据</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">流根据不同功能分为：</span></span><br><span class="line"><span class="comment">	节点流（普通流）：真正读写数据的流。真正干活的。</span></span><br><span class="line"><span class="comment">	处理流（包装流）：是对节点流的封装，也就是在节点流的基础上增加心得功能。但是读写数据还是使用节点流</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">注意：字节流是万能流，什么文件都可以操作，</span></span><br><span class="line"><span class="comment">	 字符流不是万能的，只有记事本打开不会乱码的文件，才可以用字符流操作。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>文件输入输出流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">文件输入输出流是一种普通流，真正干活的。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">文件输入流(FileInputStream)</span></span><br><span class="line"><span class="comment">    用于读取硬盘中文件的数据。（以字节为单位读取）</span></span><br><span class="line"><span class="comment">文件便捷输入流(FileReader)</span></span><br><span class="line"><span class="comment">    用于读取硬盘中文件的数据。（以字符为单位读取）</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">文件输出流(FileOutputStream)</span></span><br><span class="line"><span class="comment">    用于向硬盘中的文件写入数据。（以字节为单位写入）</span></span><br><span class="line"><span class="comment">文件便捷输出流(FileWriter)</span></span><br><span class="line"><span class="comment">    用于向硬盘中的文件写入数据。（以字符为单位写入）</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>缓冲流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">缓冲流是一种处理流，在节点流的基础上增加了缓冲区。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">字节缓冲输入流()BufferedInputStream)</span></span><br><span class="line"><span class="comment">	BufferedInputStream为另一个输入流添加一些功能，即华冲输入以及支持mark和reset方法的能力</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">字节缓冲输出流(BufferedOutputStream)</span></span><br><span class="line"><span class="comment">	该类实现缓冲的输出流，通过设置这种输出流，应用程序就可以将各个字节写入底层输出流中，而不必针对每次字节写入调用底层系统。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>标准输入输出流</p>
+<ul>
+<li><p>计算机中的标准输入设备：键盘</p>
+</li>
+<li><p>标准输出设备：显示器</p>
+</li>
+<li><p>system类中的静态方法：</p>
+<ul>
+<li><p>标准错误输出流(static Printstream err)</p>
+</li>
+<li><p>标准输入流(static Inputstream in)</p>
+<ul>
+<li>作用于键盘</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>标准输出流(static Printstream out)<ul>
+<li>作用于显示器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>打印流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">打印流(PrintStream)</span></span><br><span class="line"><span class="comment">打印流是一种处理流，为其他输出流添加了功能，使它们能够方便地打印各种数据值表示形式。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>数据流</p>
+<ul>
+<li>数据流只有字节流，没有字符流</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*序列化(DataOutputStream)</span></span><br><span class="line"><span class="comment">*将数据以乱码的方式写入，读需要使用反序列化(DataInputStream)来读取数据</span></span><br><span class="line"><span class="comment">*/</span>	</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test03</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">DataOutputStream</span> <span class="variable">dos</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            dos = <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;E:\\a.txt&quot;</span>));</span><br><span class="line">            dos.writeInt(<span class="number">1</span>);</span><br><span class="line">            dos.writeInt(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">            dos.writeChar(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            dos.writeChar(<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            dos.flush();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (dos != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    dos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*反序列化(DataInputStream)</span></span><br><span class="line"><span class="comment">*读取序列化后的数据，读取时需要与写入时的数据类型顺序对应，否则会报错</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test04</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">DataInputStream</span> <span class="variable">dis</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            dis = <span class="keyword">new</span> <span class="title class_">DataInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;E:\\a.txt&quot;</span>));</span><br><span class="line">            System.out.println(dis.readInt());</span><br><span class="line">            System.out.println(dis.readInt());</span><br><span class="line">            System.out.println(dis.readChar());</span><br><span class="line">            System.out.println(dis.readChar());</span><br><span class="line">            System.out.println(dis.readByte());</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (dis != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    dis.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">勾魂大猩猩</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://stars998.github.io/2022/08/16/javase/">https://stars998.github.io/2022/08/16/javase/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">勾魂大猩猩</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/javaSE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">javaSE学习笔记</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/08/16/javase/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="javaSE学习笔记">
+                        
+                        <span class="card-title">javaSE学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            勾魂大猩猩
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/javaSE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">javaSE学习笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/15/hello-world/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        
+                        <span class="card-title">Hello World</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            勾魂大猩猩
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%B8%96%E7%95%8C-%EF%BC%81%E4%BD%A0%E5%A5%BD/">
+                        <span class="chip bg-color">世界 ！你好</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="tencent"
+                   type="playlist"
+                   id="8417170055"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <a href="/about" target="_blank">勾魂大猩猩</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/stars998/stars998.github.io" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:93713797@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=93713797" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 93713797" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
