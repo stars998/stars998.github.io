@@ -158,11 +158,12 @@ code {
     right: 46px;
     line-height: 0;
     font-weight: bold;
-	font-family: normal;
+	/*font-family: normal;*/
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     z-index: 1;
     filter: invert(50%);
     cursor: pointer;
-	/* font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; */
+	 
 }
 
 .code-expand {
