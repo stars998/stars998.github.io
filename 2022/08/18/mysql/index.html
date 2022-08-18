@@ -4,8 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 勾魂大猩猩">
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex">
+    <meta name="keywords" content="MySQL学习笔记, 勾魂大猩猩">
+    <meta name="description" content=" MySQL
+
+
+数据库的相关概念数据
+表达形式：多种表现形式：文本，图形，音频，视频。
+
+数据库（Database，DB）
+存放数据的仓库，存放在计算机中，按照一定的格式存放，可为用户共享
+
+数据库管理系统（Database Manage">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +26,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 勾魂大猩猩</title>
+    <title>MySQL学习笔记 | 勾魂大猩猩</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -336,12 +345,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">MySQL学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -365,8 +374,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E4%B8%96%E7%95%8C-%EF%BC%81%E4%BD%A0%E5%A5%BD/">
-                                <span class="chip bg-color">世界 ！你好</span>
+                            <a href="/tags/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">MySQL学习笔记</span>
                             </a>
                         
                     </div>
@@ -381,7 +390,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-15
+                    2022-08-18
                 </div>
                 
 
@@ -402,19 +411,48 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo server
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo generate
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo deploy
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h1><center> MySQL</center>
+
+<hr>
+<h2 id="数据库的相关概念"><a href="#数据库的相关概念" class="headerlink" title="数据库的相关概念"></a>数据库的相关概念</h2><h4 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h4><ul>
+<li>表达形式：多种表现形式：文本，图形，音频，视频。</li>
+</ul>
+<h4 id="数据库（Database，DB）"><a href="#数据库（Database，DB）" class="headerlink" title="数据库（Database，DB）"></a>数据库（Database，DB）</h4><ul>
+<li>存放数据的仓库，存放在计算机中，按照一定的格式存放，可为用户共享</li>
+</ul>
+<h4 id="数据库管理系统（Database-Management-System-DBMS）"><a href="#数据库管理系统（Database-Management-System-DBMS）" class="headerlink" title="数据库管理系统（Database Management System, DBMS）"></a>数据库管理系统（Database Management System, DBMS）</h4><ul>
+<li>数据库管理系统就是科学的组织和存储数据，高效的获取和维护数据，</li>
+<li>市面上常用的：Oracle MySQL SQL Server  DB2</li>
+</ul>
+<h4 id="数据库应用程序（DBAS）"><a href="#数据库应用程序（DBAS）" class="headerlink" title="数据库应用程序（DBAS）"></a>数据库应用程序（DBAS）</h4><ul>
+<li>在数据库系统基础上，使用数据库管理系统的语法，开发的直接面对最终用户的应用程序</li>
+<li>例如：学生管理系统、人事管理系统、图书管理系统</li>
+</ul>
+<h4 id="数据库管理员（Database-Administrator-DBA）"><a href="#数据库管理员（Database-Administrator-DBA）" class="headerlink" title="数据库管理员（Database Administrator, DBA）"></a>数据库管理员（Database Administrator, DBA）</h4><ul>
+<li>数据库管理系统的操作者</li>
+</ul>
+<h4 id="最终用户"><a href="#最终用户" class="headerlink" title="最终用户"></a>最终用户</h4><ul>
+<li>数据库应用程序的使用者</li>
+</ul>
+<h4 id="数据库系统"><a href="#数据库系统" class="headerlink" title="数据库系统"></a>数据库系统</h4><ul>
+<li><p>数据库 + 数据库管理系统 + 数据库应用程序 + 最终用户</p>
+<p><img src="/images/MySQL/DB.jpg" alt="DB"></p>
+</li>
+</ul>
+<h4 id="数据库的发展阶段"><a href="#数据库的发展阶段" class="headerlink" title="数据库的发展阶段"></a>数据库的发展阶段</h4><ol>
+<li><p>网状数据库</p>
+</li>
+<li><p>层次数据库</p>
+</li>
+<li><p>关系数据库</p>
+<ul>
+<li><p>采用关系[二维表]存储与管理数据</p>
+</li>
+<li><p>采用结构化查询结构（sql）作为客户端数据库服务器之间沟通的桥梁</p>
+</li>
+</ul>
+</li>
+</ol>
 
                 
             </div>
@@ -441,7 +479,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://stars998.github.io/2022/08/15/hello-world/">https://stars998.github.io/2022/08/15/hello-world/</a>
+                    <a href="https://stars998.github.io/2022/08/18/mysql/">https://stars998.github.io/2022/08/18/mysql/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -479,8 +517,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E4%B8%96%E7%95%8C-%EF%BC%81%E4%BD%A0%E5%A5%BD/">
-                                    <span class="chip bg-color">世界 ！你好</span>
+                                <a href="/tags/MySQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">MySQL学习笔记</span>
                                 </a>
                             
                         </div>
@@ -561,9 +599,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/08/18/mysql/">
                     <div class="card-image">
@@ -581,9 +620,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -592,6 +631,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -610,13 +650,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/14/javase/">
+                <a href="/2022/08/15/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="javaSE学习笔记">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
                         
-                        <span class="card-title">javaSE学习笔记</span>
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -627,7 +667,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-15
                             </span>
                         <span class="publish-author">
                             
@@ -640,8 +680,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/javaSE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">javaSE学习笔记</span>
+                    <a href="/tags/%E4%B8%96%E7%95%8C-%EF%BC%81%E4%BD%A0%E5%A5%BD/">
+                        <span class="chip bg-color">世界 ！你好</span>
                     </a>
                     
                 </div>
