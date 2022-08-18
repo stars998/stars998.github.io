@@ -4,17 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="javase笔记, 勾魂大猩猩">
+    <meta name="keywords" content="javaSE学习笔记, 勾魂大猩猩">
     <meta name="description" content="javase
 
 
-时间日期类
-
-
-/*java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）
-*Date()类的构造方法：
-*	Public Date(){…}
-*	作用：获得保存“当前时间”的Da">
+日期时间类使用方法/*
+java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）
+Date()类的构造方法：
+    Public Date(){…}
+    作用：获得保存“当前时">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -26,7 +24,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>javase笔记 | 勾魂大猩猩</title>
+    <title>javaSE学习笔记 | 勾魂大猩猩</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -345,12 +343,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">javase笔记</h1>
+                    <h1 class="description center-align post-title">javaSE学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -374,8 +372,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/javase%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">javase笔记</span>
+                            <a href="/tags/javaSE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">javaSE学习笔记</span>
                             </a>
                         
                     </div>
@@ -390,7 +388,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-08-16
+                    2022-08-14
                 </div>
                 
 
@@ -411,63 +409,68 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1><center>javase<center>
+                <h1><center>javase</center></h1>
 
 <hr>
-<h4 id="时间日期类"><a href="#时间日期类" class="headerlink" title="时间日期类"></a>时间日期类</h4><ol>
-<li></li>
-</ol>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）
-*Date()类的构造方法：
-*	Public Date(){…}
-*	作用：获得保存“当前时间”的Date对象。
-*	Public Date(long date) {….}
-*作用：获得保存“指定时间”的Date 对象（表示的就是“指定时间”距离1970年1月1日凌晨的毫秒数）
-*    
-*Date()类的成员方法：
-*	Long getTime();返回当前时间距离1970年1月1日凌晨的毫秒数。（获得时间）
-*	void setTime(long time);使用给指定的毫秒时间值设置现有的Date对象。（修改时间）
-*    
-*SimpleDateFormat 类的引入
-*Java.text.SimpleDateFormat类属于DateFormat抽象类的实现类，开发中用来实现“Date对象”保存时间和“字符串”保存时间之间的相互转换。
-*/</span>
+<h2 id="日期时间类"><a href="#日期时间类" class="headerlink" title="日期时间类"></a>日期时间类</h2><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><pre class="line-numbers language-Java"><code class="language-Java">/*
+java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）
+Date()类的构造方法：
+    Public Date(){…}
+    作用：获得保存“当前时间”的Date对象。
+    Public Date(long date) {….}
+作用：获得保存“指定时间”的Date 对象（表示的就是“指定时间”距离1970年1月1日凌晨的毫秒数）
+    
+Date()类的成员方法：
+    Long getTime();返回当前时间距离1970年1月1日凌晨的毫秒数。（获得时间）
+    void setTime(long time);使用给指定的毫秒时间值设置现有的Date对象。（修改时间）
+    
+SimpleDateFormat 类的引入
+Java.text.SimpleDateFormat类属于DateFormat抽象类的实现类，开发中用来实现“Date对象”保存时间和“字符串”保存时间之间的相互转换。
+*/
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test01</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//获取当前时间</span>
-        Date date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        SimpleDateFormat sf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleDateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy年MM月dd日 HH时mm分ss秒"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>sf<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//将date对象保存的时间转换为calendar对象保存的时间</span>
-        Calendar calendar <span class="token operator">=</span> Calendar<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        calendar<span class="token punctuation">.</span><span class="token function">setTime</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>calendar<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//将calendar对象保存的时间转换为date对象保存的时间</span>
-        Date date1 <span class="token operator">=</span> calendar<span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String s <span class="token operator">=</span> sf<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>date1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="2">
-<li><p>时间转换格式</p>
-<ul>
-<li>当出现y时，会将y替换成年。</li>
-<li>当出现M时，会将M替换成月。</li>
-<li>当出现d 时，会将d替换成日。</li>
-<li>当出现h时，会将h替换成时(12小时制)。</li>
-<li>当出现H时，会将H替换成时(24小时制)。</li>
-<li>当出现m时，会将m替换成分。</li>
-<li>当出现s 时，会将s替换成秒。</li>
-<li>当出现s 时，会将s替换成毫秒。</li>
-<li>当出现D时，获得当前时间是今年的第几天。</li>
-<li>当出现w时，获得当前时间是今年的第几周。</li>
-<li>当出现w时，获得当前时间是本月的第几周。</li>
-</ul>
+public class Test01 {
+    public static void main(String[] args) throws IOException {
+        //获取当前时间
+        Date date = new Date();
+        System.out.println(date);
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
+        System.out.println(sf.format(date));
+        //将date对象保存的时间转换为calendar对象保存的时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        System.out.println(calendar);
+        //将calendar对象保存的时间转换为date对象保存的时间
+        Date date1 = calendar.getTime();
+        String s = sf.format(date1);
+        System.out.println(s);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="时间日期转换格式"><a href="#时间日期转换格式" class="headerlink" title="时间日期转换格式"></a>时间日期转换格式</h4><ul>
+<li><p>当出现y时，会将y替换成年。</p>
 </li>
-<li><p>时间类的构造方法</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+<li><p>当出现M时，会将M替换成月。</p>
+</li>
+<li><p>当出现d 时，会将d替换成日。</p>
+</li>
+<li><p>当出现h时，会将h替换成时(12小时制)。</p>
+</li>
+<li><p>当出现H时，会将H替换成时(24小时制)。</p>
+</li>
+<li><p>当出现m时，会将m替换成分。</p>
+</li>
+<li><p>当出现s 时，会将s替换成秒。</p>
+</li>
+<li><p>当出现s 时，会将s替换成毫秒。</p>
+</li>
+<li><p>当出现D时，获得当前时间是今年的第几天。</p>
+</li>
+<li><p>当出现w时，获得当前时间是今年的第几周。</p>
+</li>
+<li><p>当出现w时，获得当前时间是本月的第几周。</p>
+</li>
+</ul>
+<h4 id="时间类的构造方法"><a href="#时间类的构造方法" class="headerlink" title="时间类的构造方法"></a>时间类的构造方法</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
 SimpleDateFormat类的构造方法：
     Public SimpleDateFormat（String pattern）{…}
     作用：实例化SimpleDateFormat对象，并且还能设置指定的格式规则
@@ -479,67 +482,63 @@ Public SimpleDateFormat类的成员方法：（重点方法）
     作用：把字符串保存的时间转换为Date对象保存的时间
 */</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ol>
-<ul>
-<li><p>时间日期的其他常用类</p>
-<pre class="line-numbers language-java"><code class="language-java">Calendar类（日历类）
-    Java<span class="token punctuation">,</span>util<span class="token punctuation">.</span>Calendar类，通过Calendar可以表示年、月、日、是、分、秒的一个具体时间，而且还提供了日期相关的计算功能。
+<h4 id="时间日期的其他常用类"><a href="#时间日期的其他常用类" class="headerlink" title="时间日期的其他常用类"></a>时间日期的其他常用类</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/*
+Calendar类（日历类）
+    Java,util.Calendar类，通过Calendar可以表示年、月、日、是、分、秒的一个具体时间，而且还提供了日期相关的计算功能。
 Calendar类的实例化？？？
-    Calendar类是一个抽象类，无法实例化，而是调用Calendar类的“Calendar <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>”静态方法来获得一个保存“当前时间”的Calendar对象。
+    Calendar类是一个抽象类，无法实例化，而是调用Calendar类的“Calendar getInstance()”静态方法来获得一个保存“当前时间”的Calendar对象。
 Calendaer 类提供的字段？？
-    Calendaer 类中提供的字段，默认全部是<span class="token keyword">int</span>类型的“全局静态常量”。
-    calendar<span class="token punctuation">.</span> YEAR获取年份
-    calendar <span class="token punctuation">.</span> MONTH获取月份，o表示<span class="token number">1</span>月，<span class="token number">1</span>表示<span class="token number">2</span>月，<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>，<span class="token number">11</span>表示<span class="token number">12</span>月
-    calendar <span class="token punctuation">.</span> DAY_OF_MONTH获取本月的第几天
-    calendar <span class="token punctuation">.</span> DAY_OF_YEAR获取本年的第几天
-    calendar <span class="token punctuation">.</span> HOUR_OF_DAY 小时，<span class="token number">24</span>小时制calendar<span class="token punctuation">.</span> HOUR小时，<span class="token number">12</span>小时制
-    calendar<span class="token punctuation">.</span>MINUTE 获取分钟
-    calendar<span class="token punctuation">.</span>sECOND获取秒
-    calendar<span class="token punctuation">.</span>MILLISECOND获取毫秒
-    calendar <span class="token punctuation">.</span>DAY_OF_WEEK 获取星期几，<span class="token number">1</span>表示星期日，<span class="token number">2</span>表示星期一，<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>，<span class="token number">7</span>表示星期
+    Calendaer 类中提供的字段，默认全部是int类型的“全局静态常量”。
+    calendar. YEAR获取年份
+    calendar . MONTH获取月份，o表示1月，1表示2月，...，11表示12月
+    calendar . DAY_OF_MONTH获取本月的第几天
+    calendar . DAY_OF_YEAR获取本年的第几天
+    calendar . HOUR_OF_DAY 小时，24小时制calendar. HOUR小时，12小时制
+    calendar.MINUTE 获取分钟
+    calendar.sECOND获取秒
+    calendar.MILLISECOND获取毫秒
+    calendar .DAY_OF_WEEK 获取星期几，1表示星期日，2表示星期一，...，7表示星期
     六
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="时间日期的计算及转换"><a href="#时间日期的计算及转换" class="headerlink" title="时间日期的计算及转换"></a>时间日期的计算及转换</h4><ul>
+<li><p>计算的方法：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//根据字段来“增加”或“减少”数据（在“年或月..”增加或者减少多少）。</span>
+Public <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> field<span class="token punctuation">,</span><span class="token keyword">int</span> amount<span class="token punctuation">)</span><span class="token punctuation">{</span>…<span class="token punctuation">}</span> 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
-<li><p>时间日期的计算及转换</p>
-<pre class="line-numbers language-java"><code class="language-java">计算的方法：
-    Public <span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> field<span class="token punctuation">,</span><span class="token keyword">int</span> amount<span class="token punctuation">)</span><span class="token punctuation">{</span>…<span class="token punctuation">}</span>根据字段来“增加”或“减少”数据（在“年或月<span class="token punctuation">.</span><span class="token punctuation">.</span>”增加或者减少多少）。
-转换方法：
-    明确：开放中，经常设计到Date对象保存时间和Calendar对象保存时间之间的相互转换。
-    Public <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">setTime</span><span class="token punctuation">(</span>Date date<span class="token punctuation">)</span><span class="token punctuation">{</span>…<span class="token punctuation">}</span>
-    作用：把Date对象保存时间转换为calendar对象保存的时间
-    
-    Public <span class="token keyword">final</span> Date <span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>…<span class="token punctuation">}</span>
-    作用：把calendar对象保存的时间转换成date对象保存的时间
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li><p>转换方法：</p>
 </li>
-</ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="枚举（enum）"><a href="#枚举（enum）" class="headerlink" title="枚举（enum）"></a>枚举（enum）</h2><ul>
-<li><pre class="line-numbers language-java"><code class="language-java"><span class="token number">1</span><span class="token punctuation">.</span>枚举语法：
-    <span class="token punctuation">[</span>修饰符<span class="token punctuation">]</span> <span class="token keyword">enum</span> 枚举名｛
-        枚举值<span class="token number">1</span>，枚举值<span class="token number">2</span>，枚举值<span class="token number">3</span>，…<span class="token punctuation">.</span><span class="token punctuation">.</span>
-    ｝
-使用语法：枚举名<span class="token punctuation">.</span>枚举值
-    注意：在<span class="token keyword">switch</span>选择结构中，我们使用“枚举值”的时候必须省略“枚举名”。
-<span class="token number">1</span><span class="token punctuation">.</span>枚举的底层？
-    在Java中枚举本质上就是一个被<span class="token keyword">final</span>修饰的类，并且继承了Java<span class="token punctuation">.</span><span class="token keyword">long</span><span class="token punctuation">.</span>Enum抽象类
-    <span class="token operator">*</span><span class="token operator">*</span>类型的枚举中的所有枚举值，默认都是<span class="token operator">*</span><span class="token operator">*</span>类型的全局静态常量。
-    
-    对枚举进行反编译，发现枚举中还提供了values（）的全局静态方法，调用该方法就能返回枚举中的所有枚举值（用数组来存储）。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li><p>明确：开放中，经常设计到Date对象保存时间和Calendar对象保存时间之间的相互转换。</p>
+<pre class="line-numbers language-java"><code class="language-java">Public <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">setTime</span><span class="token punctuation">(</span>Date date<span class="token punctuation">)</span><span class="token punctuation">{</span>…<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//作用：把Date对象保存时间转换为calendar对象保存的时间</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 </ul>
-<h2 id="常用的API"><a href="#常用的API" class="headerlink" title="常用的API"></a>常用的API</h2><ul>
-<li><p>System的常用方法：</p>
-<pre class="line-numbers language-java"><code class="language-java">    数组拷贝：<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">arraycopy</span><span class="token punctuation">(</span>object src，<span class="token keyword">int</span> srcPos，object dest，       			<span class="token keyword">int</span> destPos，<span class="token keyword">int</span> length<span class="token punctuation">)</span>
+<hr>
+<h2 id="枚举（enum）"><a href="#枚举（enum）" class="headerlink" title="枚举（enum）"></a>枚举（enum）</h2><ul>
+<li><p>枚举语法：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">[</span>修饰符<span class="token punctuation">]</span> <span class="token keyword">enum</span> 枚举名｛
+          枚举值<span class="token number">1</span>，枚举值<span class="token number">2</span>，枚举值<span class="token number">3</span>，…<span class="token punctuation">.</span><span class="token punctuation">.</span>
+      ｝
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>使用语法：枚举名.枚举值<br>注意：在switch选择结构中，我们使用“枚举值”的时候必须省略“枚举名”。</li>
+</ul>
+</li>
+<li><p>枚举的底层？<br>在Java中枚举本质上就是一个被final修饰的类，并且继承了Java.long.Enum抽象类<br>类型的枚举中的所有枚举值，默认都是类型的全局静态常量。</p>
+</li>
+<li><p>对枚举进行反编译，发现枚举中还提供了values（）的全局静态方法，调用该方法就能返回枚举中的所有枚举值（用数组来存储）。</p>
+</li>
+</ul>
+<hr>
+<h2 id="常用的API"><a href="#常用的API" class="headerlink" title="常用的API"></a>常用的API</h2><h4 id="System的常用方法"><a href="#System的常用方法" class="headerlink" title="System的常用方法"></a>System的常用方法</h4><pre class="line-numbers language-java"><code class="language-java">    数组拷贝：<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">arraycopy</span><span class="token punctuation">(</span>object src<span class="token punctuation">,</span><span class="token keyword">int</span> srcPos<span class="token punctuation">,</span>object dest<span class="token punctuation">,</span><span class="token keyword">int</span> destPos<span class="token punctuation">,</span><span class="token keyword">int</span> length<span class="token punctuation">)</span>
     
     输出当前时间的毫秒数：<span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     
     终止当前程序，退出Java虚拟机：<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">exit</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">(</span>当s等于<span class="token number">0</span>时退出<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>String类的常用方法：</p>
-<pre class="line-numbers language-java"><code class="language-java">    <span class="token function">charAt</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> 
+<h4 id="String类的常用方法"><a href="#String类的常用方法" class="headerlink" title="String类的常用方法"></a>String类的常用方法</h4><pre class="line-numbers language-java"><code class="language-java">    <span class="token function">charAt</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> 
         返回指定索引处的 <span class="token keyword">char</span> 值
     <span class="token function">concat</span><span class="token punctuation">(</span>String str<span class="token punctuation">)</span>
         将指定字符串连接到此字符串的结尾
@@ -553,9 +552,7 @@ Calendaer 类提供的字段？？
         判断字符串是否以 指定字符串结尾
     
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>Math类的常用方法：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">    Math.PI;
+<h4 id="Math类的常用方法"><a href="#Math类的常用方法" class="headerlink" title="Math类的常用方法"></a>Math类的常用方法</h4><pre class="line-numbers language-Java"><code class="language-Java">    Math.PI;
         取圆周率：
     Math.abs(基本数据类型 a);
         取绝对值：
@@ -578,31 +575,18 @@ Calendaer 类提供的字段？？
     （long）Math.fioor(数值+0.5)
         注意：四舍五入的计算规则：
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-<li><p>UUID类</p>
-<pre class="line-numbers language-Java"><code class="language-Java">表示通用的唯一标识符（UUID）类。表示一个128位的值
+<h4 id="UUID类"><a href="#UUID类" class="headerlink" title="UUID类"></a>UUID类</h4><pre class="line-numbers language-Java"><code class="language-Java">表示通用的唯一标识符（UUID）类。表示一个128位的值
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</li>
+<hr>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
+<li>就是方法体中直接或间接的调用方法自身</li>
+<li>使用递归：<br>1.必须创建方法。<br>2.必须有结束条件，（不然就会形成死递归，导致栈溢出）。<br>3.构造函数不能使用递归。</li>
+<li>递归的思想：<br>将一个大的问题拆分成几个小问题，所有小问题解决了，大问题就解决了。</li>
+<li>注意：循环能够解决的问题递归一定能够解决，反之则不一定。<br>如果循环嵌套层次过多，则可以使用递归，但是递归效率比循环效率更低。</li>
 </ul>
-<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
-<li><pre class="line-numbers language-Java"><code class="language-Java">就是方法体中直接或间接的调用方法自身
-
-使用递归：
-    1.必须创建方法。
-    2.必须有结束条件，（不然就会形成死递归，导致栈溢出）。
-    3.构造函数不能使用递归。
-    
-递归的思想：
-    将一个大的问题拆分成几个小问题，所有小问题解决了，大问题就解决了。
-注意：循环能够解决的问题递归一定能够解决，反之则不一定。
-如果循环嵌套层次过多，则可以使用递归，但是递归效率比循环效率更低。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
-</ul>
-<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><ul>
-<li><p>集合Collection接口的继承结构图：</p>
-<p><img src="D:\course11\note\jpg\list.png" alt="list.png"></p>
-</li>
+<hr>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h4 id="集合Collection接口的继承结构图"><a href="#集合Collection接口的继承结构图" class="headerlink" title="集合Collection接口的继承结构图"></a>集合Collection接口的继承结构图</h4><p><img src="/images/Javase/io.png" alt="list.png"></p>
+<ul>
 <li><p>LinkedList类</p>
 <ul>
 <li>实现的接口：<ul>
@@ -614,14 +598,14 @@ Calendaer 类提供的字段？？
 <li><p>链表之单向链表</p>
 <ul>
 <li><p>一个节点由数据位和地址位组成，数据位就是存储元素，地址位就是下一个节点的地址。</p>
-<p><img src="D:\course11\note\jpg\linkde1.png" alt="linked1"></p>
+<p><img src="/images/Javase/linkde1.png" alt="linked1"></p>
 </li>
 </ul>
 </li>
 <li><p>链表之双向链表</p>
 <ul>
 <li><p>一个节点由两个地址位和一个数据位，数据位存储元素，地址位一个地址位指向前一个节点的地址，一个指向下一个节点的地址。</p>
-<p><img src="D:\course11\note\jpg\linkde2.png" alt="linkde2"></p>
+<p><img src="/images/Javase/linkde2.png" alt="linkde2"></p>
 </li>
 </ul>
 </li>
@@ -929,7 +913,7 @@ IO流的分类：
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://stars998.github.io/2022/08/16/javase/">https://stars998.github.io/2022/08/16/javase/</a>
+                    <a href="https://stars998.github.io/2022/08/14/javase/">https://stars998.github.io/2022/08/14/javase/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -967,8 +951,8 @@ IO流的分类：
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/javase%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">javase笔记</span>
+                                <a href="/tags/javaSE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">javaSE学习笔记</span>
                                 </a>
                             
                         </div>
@@ -1049,56 +1033,9 @@ IO流的分类：
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/2022/08/16/javase/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="javase笔记">
-                        
-                        <span class="card-title">javase笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            勾魂大猩猩
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/javase%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">javase笔记</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2022/08/15/hello-world/">
                     <div class="card-image">
@@ -1116,9 +1053,9 @@ IO流的分类：
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-15
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-15
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1132,6 +1069,51 @@ IO流的分类：
                     
                     <a href="/tags/%E4%B8%96%E7%95%8C-%EF%BC%81%E4%BD%A0%E5%A5%BD/">
                         <span class="chip bg-color">世界 ！你好</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/02/16/Markdown/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="MyMarkdown">
+                        
+                        <span class="card-title">MyMarkdown</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            勾魂大猩猩
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
+                        <span class="chip bg-color">Markdown编辑器</span>
                     </a>
                     
                 </div>
