@@ -3032,7 +3032,8 @@ Scanner input = new Scanner(System.in);
 </ul>
 </li>
 </ol>
-<h4 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h4><ol>
+<hr>
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><ol>
 <li><p>包装类的引入</p>
 <ul>
 <li><strong>世界上没有任何一门语言是完全面向对象的，因为面向对象语言中都包含了“基本数据类型”，为了方便“基本数据类型”和“引用数据类型”之间的转换，因此就诞生了“包装类”。</strong></li>
@@ -3090,6 +3091,386 @@ public abstract double doubleValue(); --> 把数值型包装类对象转化为do
 </ul>
 </li>
 </ol>
+<h4 id="基本数据类型和包装类之间的转换"><a href="#基本数据类型和包装类之间的转换" class="headerlink" title="基本数据类型和包装类之间的转换"></a>基本数据类型和包装类之间的转换</h4><ol>
+<li><p><strong>包装类的底层</strong></p>
+<ul>
+<li><strong>所谓的包装类，则底层中定义了一个对应基本数据类型的“私有常量”来保存数据，包装类其实就是对基本数据类型的数据执行封装的操作。</strong></li>
+<li>例如：在Integer包装类中，其底层定义了一个int类型的“私有常量”来保存数据，也就是Integer包装类就是对int类型数据执行的封装操作。</li>
+</ul>
+</li>
+<li><p><strong>基本数据类型转化为包装类</strong></p>
+<ul>
+<li><p>方式一：通过构造方法来实现</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">Integer</span><span class="token punctuation">(</span><span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//作用：把基本数据类型转化为包装类对象。</span>
+<span class="token keyword">public</span> <span class="token function">Integer</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token keyword">throws</span> NumberFormatException <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+          <span class="token comment" spellcheck="true">//作用：把字符串的内容转化为包装类对象。</span>
+          <span class="token comment" spellcheck="true">//注意：当字符串存储的内容和对应的基本数据类型的数据格式不匹配的时候，则就会抛出“数值格式化异常”</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>方式二：通过valueOf()静态方法来实现</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+          <span class="token comment" spellcheck="true">//作用：把基本数据类型转化为包装类对象。</span>
+       <span class="token keyword">public</span> <span class="token keyword">static</span> Integer <span class="token function">valueOf</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token keyword">throws</span> NumberFormatException <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+          <span class="token comment" spellcheck="true">//作用：把字符串的内容转化为包装类对象。</span>
+          <span class="token comment" spellcheck="true">//注意：当字符串存储的内容和对应的基本数据类型的数据格式不匹配的时候，则就会抛出“数值格式化异常”。</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>注意事项</strong></p>
+<ol>
+<li><p><strong>针对Character类型，字符串不能转化为Character类型的包装类对象，因为Character类没有提供字符串参数的构造方法和字符串参数的valueOf()方法。</strong></p>
+</li>
+<li><p>针对Boolean类型，只有字符串为“true”（不区分大小写）的时候，转化为包装对象的值才为true，否则一律都为false。</p>
+</li>
+<li><p><strong>数值型的包装类中（不包含Character和Boolean），形参字符串的内容为必须为数值型，否则抛出NumberFormatException异常。</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>包装类转化为基本数据类型？</strong></p>
+<ul>
+<li><p><strong>情况一：数值型包装类</strong></p>
+<p>–&gt; 数值型包装类都是Number抽象类的实现类，因此数值型包装类使用Number抽象类提供的方法，我们就可以实现把“数值型包装类对象”转化为“数值型”。</p>
+</li>
+<li><p><strong>情况二：非数值型包装类</strong></p>
+<p>–&gt; 针对Character类型，我们可以使用Character类中提供的charValue()方法，从而将“Character对象”转化为对应的“char类型”。</p>
+<p>–&gt; 针对Boolean类型，我们可以使用Boolean类中提供的booleanValue()方法，从而将“Boolean对象”转化为对应的“boolean类型”。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="自动装箱和自动拆箱（超级重点）"><a href="#自动装箱和自动拆箱（超级重点）" class="headerlink" title="自动装箱和自动拆箱（超级重点）"></a>自动装箱和自动拆箱（超级重点）</h4><ol>
+<li><p><strong>自动装箱和自动拆箱的概述</strong></p>
+<ul>
+<li>在JDK1.5之前，想要实现“基本数据类型”和“包装类”之间的转换，则必须通过调用包装类的方法来手动完成，此操作比较麻烦。</li>
+<li>在JDK1.5之后，想要实现“基本数据类型”和“包装类”之间的转换，则我们可以通过自动装箱和自动拆箱来完成，此操作非常简单。</li>
+</ul>
+</li>
+<li><p><strong>自动装箱机制的概述？</strong></p>
+<ul>
+<li>解释：当基本数据类型处于需要对象的环境中，则就会触发自动装箱机制，也就是自动会把基本数据类型转化为对应的包装类对象。</li>
+<li>底层：当触发自动装箱机制的时候，则默认就会调用包装类的valueOf(xxx x)静态方法，从而将基本数据类型转化为包装类对象。</li>
+</ul>
+</li>
+<li><p><strong>自动拆箱机制的概述？</strong></p>
+<ul>
+<li>解释：当包装类对象处于需要基本数据类型的环境中，则就会触发自动拆箱机制，也就是自动会把包装类对象转化为对应的基本数据类型。</li>
+<li>底层：当触发自动拆箱机制的时候，则默认就会调用包装类的xxxValue()成员方法，从而将包装类对象转化为对应的基本数据类型。</li>
+<li>例如：int num &#x3D; new Integer(123); –底层–&gt; int num &#x3D; new Integer(123).intValue();</li>
+</ul>
+</li>
+<li><p><strong>自动装箱的缓存问题？</strong></p>
+<ul>
+<li>解释：当“整数型”的数据取值范围在[-128, 127]之间的时候，如果触发了自动装箱机制，则就会从“缓存池”中取出一个包装类对象并返回，也就是不会创建新的包装类对象并返回。</li>
+<li>当“整数型”的数据取值范围在[-128, 127]之外的时候，如果触发了自动装箱机制，则就会直接创建一个新的包装类对象并返回，也就是不会从缓存池中取出包装类对象来返回。</li>
+</ul>
+</li>
+<li><p><strong>自动拆箱的空指针问题？</strong></p>
+<ul>
+<li><p>解释：<strong>当触发自动拆箱机制的时候，则默认就会调用包装类的xxxValue()成员方法，如果该包装对象为null，那么触发自动拆箱机制就会抛出空指针异常。</strong></p>
+<p>–&gt; <strong>例如：Integer integer &#x3D; null; int num &#x3D; integer; &#x2F;&#x2F; 等效于： int num &#x3D; integer.intValue();</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="基本数据类型和字符串之间的转换"><a href="#基本数据类型和字符串之间的转换" class="headerlink" title="基本数据类型和字符串之间的转换"></a>基本数据类型和字符串之间的转换</h4><ol>
+<li><p><strong>字符串转化为基本数据类型（重要）</strong></p>
+<ul>
+<li><p>明确：<strong>使用包装类提供的parseXxx(String str)的静态方法来实现。</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">Byte	    <span class="token keyword">static</span> <span class="token keyword">byte</span> <span class="token function">parseByte</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	        <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制byte 。</span>
+Short	    <span class="token keyword">static</span> <span class="token keyword">short</span> <span class="token function">parseShort</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	    <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制short 。</span>
+Integer	<span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	        <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制int。</span>
+Long	    <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">parseLong</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> 	    <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制long。</span>
+Float	    <span class="token keyword">static</span> <span class="token keyword">float</span> <span class="token function">parseFloat</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	    <span class="token comment" spellcheck="true">//返回一个新 float值，该值被初始化为用指定字符串表示的值。</span>
+Double	    <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">parseDouble</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	    <span class="token comment" spellcheck="true">//返回一个新 double值，该值被初始化为用指定字符串表示的值。</span>
+ Boolean	<span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">parseBoolean</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	<span class="token comment" spellcheck="true">//将字符串参数解析为boolean值。</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>注意事项：</p>
+<ul>
+<li>1.<strong>不能把字符串转化为char类型，因为Character包装类中没有提供parseChar(String value)方法。</strong></li>
+<li>2.针对Boolean类型，只有字符串为“true”的时候（不区分大小写），转化为基本类型的值才为true，否则都为false。</li>
+<li>3.<strong>整数型包装类，字符串中的内容必须是十进制整数；浮点型包装类中，字符串中的内容必须为十进制整数或浮点数，否则抛出NumberFormatException异常。</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>基本数据类型转化为字符串（了解）</p>
+<ul>
+<li><p>明确：<strong>把基本数据类型转换为字符串，我们可以使用“+”连接符来实现，也可以使用包装类提供的方法来实现。</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">所有包装类	String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>	                返回对象的字符串表示形式。
+Byte	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">byte</span> b<span class="token punctuation">)</span>	    把<span class="token keyword">byte</span>类型转化为字符串返回。
+Short	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">short</span> s<span class="token punctuation">)</span>	    把<span class="token keyword">short</span>类型转化为字符串返回。
+Integer	<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>	    把<span class="token keyword">int</span>类型转化为字符串返回。
+Long	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">long</span> i<span class="token punctuation">)</span>	    把<span class="token keyword">long</span>类型转化为字符串返回。
+Float	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">float</span> f<span class="token punctuation">)</span>	    把<span class="token keyword">float</span>类型转化为字符串返回。
+Double	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">double</span> d<span class="token punctuation">)</span>	把<span class="token keyword">double</span>类型转化为字符串返回。
+Boolean	<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> b<span class="token punctuation">)</span>	把<span class="token keyword">boolean</span>类型转化为字符串返回。
+Character	<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">char</span> c<span class="token punctuation">)</span>	    把<span class="token keyword">char</span>类型转化为字符串返回。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="String类讲解"><a href="#String类讲解" class="headerlink" title="String类讲解"></a>String类讲解</h2><h4 id="字符串常量池的概述"><a href="#字符串常量池的概述" class="headerlink" title="字符串常量池的概述"></a>字符串常量池的概述</h4><ul>
+<li><strong>加载类的时候</strong>，如果该类中有双引号创建的字符串，则就<strong>把该字符串在常量池中开辟存储空间并存储，并且常量池中存储的字符串都是唯一的。</strong></li>
+<li><strong>执行程序的时候</strong>，如果遇到了双引号创建的字符串，则<strong>直接去常量池中取出该字符串并使用即可，也就是不会再次去创建一个新的字符串。</strong></li>
+</ul>
+<h4 id="String类的概述"><a href="#String类的概述" class="headerlink" title="String类的概述"></a>String类的概述</h4><ul>
+<li>在字符串中，存储的是任意多个字符，这些字符以char类型的数组来存储的。<strong>在String类中，char类型的数组默认采用了final来修饰</strong>，也就意味着<strong>char类型的数组不能扩容</strong>，也就是<strong>字符串中存储的字符内容不可改变，因此我们称String为“不可变的Unicode编码序列”，简称“不可变字符串”。</strong>并且，<strong>String类还采用了final修饰，则意味着String类不能被继承。</strong></li>
+</ul>
+<h4 id="String类的部分常用方法"><a href="#String类的部分常用方法" class="headerlink" title="String类的部分常用方法"></a>String类的部分常用方法</h4><ul>
+<li><p>length()方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java"> public int length() { ... }
+//作用：获得字符串的长度，也就是获得底层char类型数组的空间长度。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>charAt()方法</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">char</span> <span class="token function">charAt</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//作用：根据索引获得字符串中的字符。</span>
+<span class="token comment" spellcheck="true">//注意：index取值范围在[0, 字符串长度-1]之间，超出范围则就会抛出StringIndexOutOfBoundsException异常</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>indexOf()方法</p>
+<ul>
+<li>明确：“从前往后”查找某个“字符”或“子串”在“主串”中的索引位置，如果查找的“字符”或“字串”不存在，则返回-1</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">int indexOf(int ch)	                //返回指定字符第一次出现在字符串内的索引。
+int indexOf(int ch, int fromIndex)	    //返回指定字符第一次出现在字符串内的索引，以指定的索引开始搜索。
+int indexOf(String str)	            //返回指定子字符串第一次出现在字符串内的索引。
+int indexOf(String str, int fromIndex)	//返回指定子串的第一次出现在字符串中的索引，从指定的索引开始搜索。
+//注意：此处indexOf()方法的底层使用“字符串匹配算法”来实现，常见的字符串匹配算法有：BF算法和KMP算法。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>lastIndexOf()方法</p>
+<ul>
+<li>明确：“从后往前”查找某个“字符”或“子串”在“主串”中的索引位置，如果查找的“字符”或“字串”不存在，则返回-1</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">int lastIndexOf(int ch)	                //返回指定字符最后一次出现在字符串内的索引。
+int lastIndexOf(int ch, int fromIndex)	    //返回指定字符最后一次出现在字符串内的索引，以指定的索引开始搜索。
+int lastIndexOf(String str)	            //返回指定子字符串最后一次出现在字符串内的索引。
+int lastIndexOf(String str, int fromIndex)	//返回指定子串的最后一次出现在字符串中的索引，从指定的索引开始搜索。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>startsWith()方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public boolean startsWith(String prefix) { ... }
+// 作用：判断某个字符串是否以prefix开头。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>endsWith()方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public boolean endsWith(String suffix) { ... }
+//作用：判断某个字符串是否以suffix结尾
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>contains()方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public boolean contains(CharSequence s) { ... }
+//作用：判断字符串中是否包含某个子串（开头、中间和结尾）
+//注意：此处CharSequence是一个接口，该接口的实现类有String、StringBuffer和StringBuilder
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>字符串大小写转换</p>
+<ul>
+<li>明确：字符串大小写转换，针对“英文字母”有效，针对“中文汉字”无效。</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">String toUpperCase()	//返回一个新的字符串，该字符串中所有英文字符转换为大写字母。
+String toLowerCase()	//返回一个新的字符串，该字符串中所有英文字符转换为小写字母。
+//注意：执行注册或登录操作的时候，就需要使用字符型大小写转换来校对验证码。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>忽略字符串前后空格</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public String trim()  //忽略字符串前后端的空格，中间的空格不用忽略
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>字符串的截取操作</p>
+<pre class="line-numbers language-Java"><code class="language-Java">String substring(int beginIndex)	            //从beginIndex开始截取字符串，到字符串末尾结束。
+// 注意：此处beginIndex的取值范围在[0, 字符串长度-1]之间。
+    
+String substring(int beginIndex, int endIndex)	//从beginIndex开始截取字符串，到字符索引endIndex-1结束。
+    //注意：beginIndex的取值范围在[0, 字符串长度-1]之间，endIndex的取值范围在[0, 字符串长度]之间，并且endIndex必须大于beginIndex
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>字符串的替换操作</p>
+<pre class="line-numbers language-Java"><code class="language-Java">// 通过用newChar字符替换字符串中出现的所有oldChar字符，并返回替换后的新字符串。
+String replace(char oldChar, char newChar)	
+    
+//将与字面目标序列匹配的字符串的每个子字符串替换为指定的字面替换序列。
+String replace(CharSequence target, CharSequence replacement)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>字符串拼接的操作</p>
+<ul>
+<li>明确：我们可以使用“+”连接符来实现字符串的评价操作，也可以使用String类提供的“String concat(String str)”方法来实现。</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Test02 {
+    public static void main(String[] args) {
+        // 需求：完成字符串的拼接操作
+        String str1 = "hello" + "world";
+        System.out.println(str1); // 输出：helloworld
+
+        String str2 = "hello".concat("world");
+        System.out.println(str2); // 输出：helloworld
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>isEmpty方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">//作用：判断字符串是否为空，也就是判断底层的char类型数组空间长度是否为0
+ public boolean isEmpty() { ... }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>equals方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">boolean equals(Object anObject)	    //判断字符串内容是否相同，区分字母大小写。
+boolean equalsIgnoreCase(String str)	//判断字符串内容是否相同，忽略字母大小写。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>valueOf方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">String类提供了valueOf(xxx x)    //这个静态方法，该方法用于将其他的数据类型转化为字符串。
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="StringBuffer类的概述"><a href="#StringBuffer类的概述" class="headerlink" title="StringBuffer类的概述"></a>StringBuffer类的概述</h4><ul>
+<li>StringBuffer类继承于AbstractStringBuilder抽象类，StringBuffer类底层维护者一个char类型的数组，并且该char类型的数组没有使用final修饰，也就意味着该char类型的数组可以自动扩容，也就是该char类型数组存储的元素可以改变，因此我们就称StringBuffer类为“可变的Unicode编码序列”，简称“可变字符串”。并且，StringBuffer类采用了final修饰，也就意味着StringBuffer不能被继承。</li>
+</ul>
+<h4 id="String类和StringBuffer类特点"><a href="#String类和StringBuffer类特点" class="headerlink" title="String类和StringBuffer类特点"></a>String类和StringBuffer类特点</h4><ol>
+<li><p>相同点：</p>
+<ul>
+<li>a)底层都维护者一个char类型的数组，也就是存储的都是字符，因此都属于“字符串”。</li>
+<li>b)这个两个类都采用了final修饰，也就意味着String和StringBuffer都不能被继承。</li>
+</ul>
+</li>
+<li><p>不同点：</p>
+<ul>
+<li><p>String类底层的char类型数组使用了final修饰，因此String类存储的字符内容不可改变，我们就称之为“不可变字符串”。</p>
+<p>–&gt; 通过String类提供的方法来操作字符串中的内容时，都不是直接基于char类型数组做的操作，那么都会返回一个新的字符串。</p>
+</li>
+<li><p>StringBuffer类底层的char类型数组没有使用final修饰，因此StringBuffer类存储的字符内容可以改变，我们就称之为“可变字符串”。</p>
+<p>–&gt; 通过StringBuffer类提供方法来操作字符串中的内容，都是直接基于char类型数组做的操作，因此就可以无需返回新的字符串。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="StringBuffer类的构造方法"><a href="#StringBuffer类的构造方法" class="headerlink" title="StringBuffer类的构造方法"></a>StringBuffer类的构造方法</h4><pre class="line-numbers language-Java"><code class="language-Java">StringBuffer()	                //构造一个没有字符的字符串缓冲区，初始容量为16个字符（有用）。
+StringBuffer(CharSequence seq)	//构造一个包含与指定的相同字符的字符串缓冲区CharSequence 。
+StringBuffer(int capacity)	    //构造一个没有字符的字符串缓冲区和指定的初始容量。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="StringBuffer类的方法"><a href="#StringBuffer类的方法" class="headerlink" title="StringBuffer类的方法"></a>StringBuffer类的方法</h4><ul>
+<li><p>明确：如果StringBuffer类提供方法的返回值类型为StringBuffer或AbstractStringBuilder，则该返回值就是“当前方法的调用者对象”。</p>
+<ol>
+<li><p>添加方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">//作用：在可变字符串末尾添加内容。
+public AbstractStringBuilder append(Type type) { ... }
+// 作用：在可变字符串索引为offset位置插入字符串内容。
+ public AbstractStringBuilder insert(int offset, Type type) { ... }
+ 
+ //注意：此处offset的取值范围在[0, 可变字符串长度]之间，超出范围则就会抛出“字符串索引越界异常”。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>替换的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">//作用：把可变字符串索引为index的字符替换为ch即可。
+ public synchronized void setCharAt(int index, char ch) { ... }
+ //  注意：此处index的取值范围在[0, 可变字符串长度 - 1]之间，超出范围则就会抛出“字符串索引越界异常”。
+ 
+//作用：把可变字符串索引为[start, end)之间的元素替换为str即可。
+ public synchronized StringBuffer replace(int start, int end, String str) { ... }
+ //注意：此处start的取值范围[0, 可变字符串长度 - 1]之间，end的取值范围在[0, 可变字符串长度]之间，并且end必须大于start。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>删除的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">//作用：删除可变字符串中索引为index的字符。
+public synchronized StringBuffer deleteCharAt(int index) { ... }
+// 注意：此处index的取值范围在[0, 可变字符串长度 - 1]之间，超出范围则就会抛出“字符串索引越界异常”。
+
+//作用：删除索引为[start, end)范围之间的元素。
+ public synchronized StringBuffer delete(int start, int end) {  ... }
+ //注意：此处start的取值范围[0, 可变字符串长度 - 1]之间，end的取值范围在[0, 可变字符串长度]之间，并且end必须大于start。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>查找的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">charAt(int index)	                    //返回 char在指定索引在这个序列值。
+indexOf(String str)	                //返回指定子字符串第一次出现的字符串内的索引。
+indexOf(String str, int fromIndex)	    //返回指定子串的第一次出现的字符串中的索引，从指定的索引开始。
+lastIndexOf(String str)	            //返回指定子字符串最右边出现的字符串内的索引。
+lastIndexOf(String str, int fromIndex)	//返回指定子字符串最后一次出现的字符串中的索引，从指定的索引开始。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>反转的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public synchronized StringBuffer reverse() 把可变字符串中的内容进行反转操作
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>操作字符串长度的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">// 作用：获得可变字符串的长度
+ public synchronized int length() { ... }
+
+// 作用：修改可变字符串的长度。
+public synchronized void setLength(int newLength) { ... }
+//注意：如果“设置的长度”大于“可变字符串的长度”，则默认做“扩容操作”。
+//如果“设置的长度”小于“可变字符串的长度”，则默认做“剪切操作”。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>字符串截取的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">substring(int start)	        //返回一个新的 String ，其中包含此字符序列中当前包含的字符的子序列。
+substring(int start, int end)	//返回一个新的 String ，其中包含此序列中当前包含的字符的子序列。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>转化为String类的方法</p>
+<pre class="line-numbers language-Java"><code class="language-Java">// 作用：把StringBuffer对象转化为String类型。
+public synchronized String toString() { ... }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="StringBuilder类的概述"><a href="#StringBuilder类的概述" class="headerlink" title="StringBuilder类的概述"></a>StringBuilder类的概述</h4><ul>
+<li>StringBuilder类继承于AbstractStringBuilder抽象类，StringBuilder类底层维护者一个char类型的数组，并且该char类型的数组没有使用final修饰，也就意味着该char类型的数组可以自动扩容，也就是StringBuilder类存储的字符内容可以改变，因此我们就称呼StringBuilder类为“可变的Unicode编码序列”，简称“可变字符串”。并且，StringBuilder类采用final修饰，也就意味着StringBuilder不能被继承。</li>
+</ul>
+<h4 id="StringBuffer类和StringBuilder类的特点"><a href="#StringBuffer类和StringBuilder类的特点" class="headerlink" title="StringBuffer类和StringBuilder类的特点"></a>StringBuffer类和StringBuilder类的特点</h4><ol>
+<li>相同点<ul>
+<li>a)底层都包含char类型的数组，并且该char类型的数组都没使用final修饰，因此都称之为“可变字符串”。</li>
+<li>b)这两个类都采用了final关键字来修饰，也就意味着StringBuffer类和StringBuilder类都不能被继承。</li>
+<li>c)都继承于AbstractStringBuilder抽象类，并且这两个类拥有的方法都相同，因此使用方法属于类似的。</li>
+</ul>
+</li>
+<li>不同点<ul>
+<li>StringBuffer：线程安全的，会做线程同步检查，因此效率较低（不常用）。</li>
+<li>StringBuilder：线程不安全的，不会做线程同步检查，因此效率较高（常用）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="使用“-”连接符完成字符串拼接操作的底层分析（重点）"><a href="#使用“-”连接符完成字符串拼接操作的底层分析（重点）" class="headerlink" title="使用“+”连接符完成字符串拼接操作的底层分析（重点）"></a>使用“+”连接符完成字符串拼接操作的底层分析（重点）</h4><ol>
+<li>情况一：两个字符串都是常量时，使用“+”来完成拼接操作<ul>
+<li>底层：因为常量保存的内容不可改变，也就是编译时期就能确定常量的值，因此为了提高字符串的拼接效率，所以就在编译时期就完成了拼接操作。</li>
+</ul>
+</li>
+<li>情况二：其中一个为字符串变量时，使用“+”来完成拼接操作<ul>
+<li>底层：因为编译时期无法确定变量的值，因此其中一个为字符串变量的拼接操作，那么肯定不是在编译时期完成，而是在运行时期来完成的，并且实现步骤如下。</li>
+</ul>
+</li>
+</ol>
+<h4 id="三种字符串的拼接效率（重点）"><a href="#三种字符串的拼接效率（重点）" class="headerlink" title="三种字符串的拼接效率（重点）"></a>三种字符串的拼接效率（重点）</h4><ol>
+<li><p>System.currentTimeMillis()方法的概述？</p>
+<ul>
+<li>作用：获得“当前时间”距离1970年1月1日凌晨的毫秒数。</li>
+<li>–&gt; 公式：1秒 &#x3D; 1000毫秒</li>
+<li>使用：计算完成某个功能所需要的耗时，则就可以使用该方法来实现。</li>
+<li>–&gt; 耗时：结束时间 - 开始时间</li>
+</ul>
+</li>
+<li><p>三种字符串的拼接效率？</p>
+<ul>
+<li><p><strong>StringBuilder的拼接效率最高，StringBuffer的拼接效率次之，String的拼接效率最低。</strong></p>
+</li>
+<li><p>注意：<strong>如果需要大量执行字符串的拼接操作，则建议使用StringBuilder类来完成拼接操作。</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="链式调用语法（了解）"><a href="#链式调用语法（了解）" class="headerlink" title="链式调用语法（了解）"></a>链式调用语法（了解）</h4><p>理解：每个成员方法体中都返回this，也就是每个成员方法体中都返回该方法的调用者对象。</p>
+<ol>
+<li>问题：在目前已经学习的类中，哪些类支持链式调用语法呢？？？<ul>
+<li>答案：StringBuilder和StringBuffer</li>
+</ul>
+</li>
+</ol>
+<hr>
 <h2 id="日期时间类"><a href="#日期时间类" class="headerlink" title="日期时间类"></a>日期时间类</h2><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><ul>
 <li><p>java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）</p>
 <ul>
