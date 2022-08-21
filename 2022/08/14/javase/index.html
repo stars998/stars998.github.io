@@ -3471,6 +3471,79 @@ public synchronized String toString() { ... }
 </li>
 </ol>
 <hr>
+<h2 id="properties类"><a href="#properties类" class="headerlink" title="properties类"></a>properties类</h2><h4 id="properties的概述"><a href="#properties的概述" class="headerlink" title="properties的概述"></a>properties的概述</h4><ul>
+<li>Properties类是属于集合，叫做属性集</li>
+<li>Properties类是Hashtable的子类，所以存储的数据也是kv格式</li>
+<li>Properties类中的key和value只能是String类型</li>
+<li>Properties 类是一个持久的属性集，Properties可保存在流中或从流中加载。</li>
+</ul>
+<h4 id="常用方法："><a href="#常用方法：" class="headerlink" title="常用方法："></a>常用方法：</h4><ol>
+<li><p>操作属性：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">String getProperty(String key)
+      用指定的键在此属性列表中搜索属性。
+ String getProperty(String key, String defaultValue)
+      用指定的键在属性列表中搜索属性。
+ Object setProperty(String key, String value)
+      调用 Hashtable 的方法 put。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>持久化方法，将数据保存到文件中</p>
+<pre class="line-numbers language-Java"><code class="language-Java">void store(OutputStream out, String comments)
+      以适合使用 load(InputStream) 方法加载到 Properties 表中的格式，将此 Properties 表中的属性列表（键和元素对）写入输出流。
+ void store(Writer writer, String comments)
+      以适合使用 load(Reader) 方法的格式，将此 Properties 表中的属性列表（键和元素对）写入输出字符。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>读取持久化的数据</p>
+<pre class="line-numbers language-Java"><code class="language-Java">void load(InputStream inStream)
+    从输入流中读取属性列表（键和元素对）。
+  void load(Reader reader)
+    按简单的面向行的格式从输入字符流中读取属性列表（键和元素对）。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>练习</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Demo01 {
+
+    public static void main(String[] args) throws IOException {
+        // 创建属性集对象
+        Properties prop = new Properties();
+        // 设置属性
+        prop.setProperty("name","张三");
+        prop.setProperty("age","20");
+        prop.setProperty("sex","男");
+
+        /*
+        * 将属性集持久化:(Writer writer, String comments)
+        *  第二个参数是 文件的注释信息
+        *  properties文件的注释格式是：  # 注释文字
+        *
+        *  属性集有字节的文件格式，扩展名是 .properties
+        * 数据格式是  key=value
+        *
+        */
+        prop.store(new FileWriter("day23/user.properties"),"用户的信息");
+
+        // 读取properties文件的数据
+        Properties prop01 = new Properties();
+        // 将文件数据加到到Properties属性集中
+        prop01.load(new FileReader("day23/user.properties"));
+
+        // 获取属性,如果属性不存在就返回null
+//        String name = prop01.getProperty("name");
+
+        /*
+        * getProperty(String key, String defaultValue)
+        *  如果属性存在就返回对应的值；如果属性不存在就返回默认值defaultValue
+        */
+        String name = prop01.getProperty("name1","不存在");
+        System.out.println(name);
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
 <h2 id="日期时间类"><a href="#日期时间类" class="headerlink" title="日期时间类"></a>日期时间类</h2><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><ul>
 <li><p>java.util.Date() 我们称为时间类，程序中我们通过new对象保存时间（单位为毫秒）</p>
 <ul>
@@ -5214,7 +5287,7 @@ List<String> collect = Stream.concat(stream,stream1).distinct().collect(Collecto
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/16/Markdown/">
+                <a href="/2020/07/16/Markdown/">
                     <div class="card-image">
                         
                         
@@ -5231,7 +5304,7 @@ List<String> collect = Stream.concat(stream,stream1).distinct().collect(Collecto
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-16
                             </span>
                         <span class="publish-author">
                             
