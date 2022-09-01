@@ -738,6 +738,407 @@ public class Test04Query {
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
+<h4 id="查询的扩展内容"><a href="#查询的扩展内容" class="headerlink" title="查询的扩展内容"></a>查询的扩展内容</h4><ul>
+<li><p>查询多占位符时，使用<strong>非暴力</strong>获取属性</p>
+</li>
+<li><p>代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">//获取所有成员的名称，封装到beanInfo中
+ BeanInfo beanInfo = Introspector.getBeanInfo(User.class, Object.class);
+ //从beanInfo中提取出属性成员
+ PropertyDescriptor[] pd = beanInfo.getPropertyDescriptors();
+ //创建用户对象
+ T t = clz.newInstance();
+ //遍历，取出属性的name，然后通过name取出对应的setter方法
+ for (PropertyDescriptor descriptor : pd) {
+     //取出字段的名称
+     String name = descriptor.getName();
+     //通过字段名，获取对应的值
+     Object value = rs.getObject(name);
+
+     //获取set方法的方法对象
+     Method method = descriptor.getWriteMethod();
+     //执行set方法
+     method.invoke(t,value);
+ }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="分页查询案例"><a href="#分页查询案例" class="headerlink" title="分页查询案例"></a>分页查询案例</h4><ul>
+<li><p>代码：封转分页类</p>
+<pre class="line-numbers language-Java"><code class="language-Java">/**
+ * 封装分页类
+ */
+public class Paging {
+    private int pageSize;//每页显示的条数
+    private int currentPage;//当前页
+    private List<?> listData;//当前页显示的数据
+    private int totalSize;//总条数
+
+    private int prePage;//上一页(计算)
+    private int nextPage;//下一页(计算)
+    private int totalPage;//总页数(计算)
+
+    //重载构造方法，用于没有数据的时候
+    public Paging(int currentPage,int pageSize) {
+        this(currentPage,0,pageSize,null);
+    }
+
+    public Paging(int currentPage,int totalSize,int pageSize,List<?> listData) {
+        this.pageSize = pageSize;
+        this.currentPage = currentPage;
+        this.listData = listData;
+        this.totalSize = totalSize;
+
+        //如果总条数为0，那么就不用计算了
+        if (totalSize == 0){
+            this.totalPage = 1;
+            this.prePage = 1;
+            this.nextPage = 1;
+            return;
+        }
+
+        //将需要计算的数据先算出来
+        //计算上一页
+        this.prePage = currentPage - 1 > 0 ? currentPage - 1 : currentPage;
+        //计算总页数
+        this.totalPage = totalSize % pageSize > 0 ? totalSize /pageSize + 1 : totalSize /pageSize;
+        //计算下一页
+        this.nextPage = currentPage + 1 > totalPage ? totalPage : currentPage + 1;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public List<?> getListData() {
+        return listData;
+    }
+
+    public int getPrePage() {
+        return prePage;
+    }
+
+    public int getNextPage() {
+        return nextPage;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public int getTotalSize() {
+        return totalSize;
+    }
+
+    @Override
+    public String toString() {
+        return "Paging{" +
+                "pageSize=" + pageSize +
+                ", currentPage=" + currentPage +
+                ", listData=" + listData +
+                ", totalSize=" + totalSize +
+                ", prePage=" + prePage +
+                ", nextPage=" + nextPage +
+                ", totalPage=" + totalPage +
+                '}';
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>实现分页</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public Paging pagingSelect(PagingObject pag) {
+        //先查询总条数
+        String sql = "select * from t_student";
+        List<User> users = DMLUtil.executeDql(sql, User.class);
+        if (users.size() == 0){
+            return new Paging(pag.getCurrentPage(),pag.getPageSize());
+        }
+        //如果有数据，开始查询
+        sql = "select * from t_student limit ?,?";
+        List<User> list = DMLUtil.executeDql(sql, User.class,pag.getindex(),pag.getPageSize());
+        return new Paging(pag.getCurrentPage(),users.size(),pag.getPageSize(),list);
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>工具类</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.util;
+
+//执行查询的sql工具类
+public static <T> List<T> executeDql(String sql,Class<T> clz, Object...objs){
+        List<T> list = new ArrayList<>();
+        try {
+            conn = ds.getConnection();
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < objs.length; i++) {
+                ps.setObject(i+1,objs[i]);
+            }
+            rs = ps.executeQuery();
+            while (rs.next()){
+                //获取所有成员的名称，封装到beanInfo中
+                BeanInfo beanInfo = Introspector.getBeanInfo(User.class, Object.class);
+                //从beanInfo中提取出属性成员
+                PropertyDescriptor[] pd = beanInfo.getPropertyDescriptors();
+                //创建用户对象
+                T t = clz.newInstance();
+                //遍历，取出属性的name，然后通过name取出对应的setter方法
+                for (PropertyDescriptor descriptor : pd) {
+                    //取出字段的名称
+                    String name = descriptor.getName();
+                    //通过字段名，获取对应的值
+                    Object value = rs.getObject(name);
+
+                    //获取set方法的方法对象
+                    Method method = descriptor.getWriteMethod();
+                    //执行set方法
+                    method.invoke(t,value);
+                }
+                list.add(t);
+            }
+            return list;
+        } catch (Exception throwables) {
+            throwables.printStackTrace();
+        } finally {
+            dqlRelease(conn,ps,rs);
+        }
+        return null;
+    }
+
+
+
+//分页查询用户操作的工具类
+package com.abc.paging;
+
+public class PagingObject {
+    private int currentPage = 1;//用户操作的当前页
+    private int pageSize = 3;//用户操作的每页显示条数
+
+
+    public int getindex(){
+        return (currentPage - 1 ) * pageSize;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h2><h4 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h4><ul>
+<li>事务是数据库的逻辑工作单位，事务中包含的各操作要么都做，要么都不做</li>
+</ul>
+<h4 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h4><ul>
+<li>事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态。因此当数据库只包含成功事务提交的结果时，就说数据库处于一致性状态。如果数据库系统 运行中发生故障，有些事务尚未完成就被迫中断，这些未完成事务对数据库所做的修改有一部分已写入物理数据库，这时数据库就处于一种不正确的状态，或者说是 不一致的状态。</li>
+</ul>
+<h4 id="隔离性"><a href="#隔离性" class="headerlink" title="隔离性"></a>隔离性</h4><ul>
+<li>一个事务的执行不能其它事务干扰。即一个事务内部的操作及使用的数据对其它并发事务是隔离的，并发执行的各个事务之间不能互相干扰。</li>
+</ul>
+<h4 id="持久性"><a href="#持久性" class="headerlink" title="持久性"></a>持久性</h4><ul>
+<li>也称永久性，指一个事务一旦提交，它对数据库中的数据的改变就应该是永久性的。接下来的其它操作或故障不应该对其执行结果有任何影响。</li>
+</ul>
+<h4 id="事务的运用"><a href="#事务的运用" class="headerlink" title="事务的运用"></a>事务的运用</h4><ul>
+<li><p>代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Test08Transaction {
+    public static void main(String[] args) {
+        //声明连接对象
+        Connection conn=null;
+        //声明发送SQL的接口对象
+        Statement stmt=null;
+        try {
+            //创建连接对象
+            conn = DBUtils.getConn();
+            // 开启事务，关闭自动提交事务
+            conn.setAutoCommit(false);
+            // 编写SQL
+            String sql1 = "update account set amount = amount-1000 where aid=1";
+            String sql2 = "update account set amount = amount+1000 where aid=2";
+            // 创建SQL命令发送器
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql1);
+            stmt.executeUpdate(sql2);
+            conn.commit();//手动提交
+        }catch (Exception e){
+            e.printStackTrace();
+            try {
+                //回滚事务
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }finally {
+            // 关闭数据库资源
+            DBUtils.close(stmt);
+            DBUtils.close(conn);
+        }
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><strong>注意：</strong>不管事务是否成功，最后都需要回滚。当执行中报异常使代码无法手动提交事务时，也需要回滚，此时回滚是起到<strong>释放锁</strong>的作用。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="JDBC批处理"><a href="#JDBC批处理" class="headerlink" title="JDBC批处理"></a>JDBC批处理</h2><h4 id="什么是批处理"><a href="#什么是批处理" class="headerlink" title="什么是批处理"></a>什么是批处理</h4><ul>
+<li><p>批处理是建立一次连接(创建一个Connection对象)的情况下批量执行多个DML语句，这些DML语句要么全部成功要么全部失败。如何确保全部成功or全部失败呢？在JDBC中开启事务，使用事务管理DML语句。</p>
+</li>
+<li><p>例如：使用批处理根据id批量的删除student表中的数据</p>
+<ol>
+<li>定义SQL配置文件</li>
+<li>创建Connection对象</li>
+<li>创建PreparedStatement对象</li>
+<li>将提交方式设置为手动提交，开启事务</li>
+<li>设置占位符</li>
+<li>将占位符添加到批处理中（相当于收集若干个本子，放入包包中）</li>
+<li>执行批处理</li>
+<li>提交事务</li>
+<li>如果批处理失败，在catch块中回滚事务</li>
+<li>关闭资源</li>
+</ol>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Test09Batch {
+    public static void main(String[] args) {
+        //模拟要删除的数据
+        List<Integer> ids= Arrays.asList(1,2,3,4,5);
+        //声明连接对象
+        Connection conn=null;
+        //声明发送SQL的接口对象
+        PreparedStatement pstmt=null;
+        try {
+            //创建连接对象
+            conn = DBUtils.getConn();
+            // 关闭自动提交事务
+            conn.setAutoCommit(false);
+            // 编写SQL
+            String sql = "delete from student where id = ?;";
+            // 创建SQL命令发送器
+            pstmt = conn.prepareStatement(sql);
+            for (Integer id : ids) {
+                pstmt.setInt(1,id);
+                pstmt.addBatch();
+            }
+            int[] rows = pstmt.executeBatch();
+            System.out.println("受影响的行数为:"+Arrays.toString(rows));
+            conn.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }finally {
+            // 关闭数据库资源
+            DBUtils.close(pstmt);
+            DBUtils.close(conn);
+        }
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<hr>
+<h2 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h2><h4 id="连接池概念"><a href="#连接池概念" class="headerlink" title="连接池概念"></a>连接池概念</h4><ul>
+<li><p>连接池是创建和管理一个连接的缓冲池的技术，这些连接准备好被任何需要它们的线程使用。</p>
+<p>连接池是装有连接的容器，使用连接的话，可以从连接池中进行获取，使用完成之后将连接归还给连接池。</p>
+</li>
+</ul>
+<h4 id="为什么使用连接池"><a href="#为什么使用连接池" class="headerlink" title="为什么使用连接池"></a>为什么使用连接池</h4><ul>
+<li>连接对象创建和销毁是需要耗费时间的，在服务器初始化的时候就初始化一些连接。把这些连接放入到内存中，使用的时候可以从内存中获取，使用完成之后将连接放入连接池中。从内存中获取和归还的效率要远远高于创建和销毁的效率。（提升性能）。</li>
+</ul>
+<h4 id="创建一个连接池"><a href="#创建一个连接池" class="headerlink" title="创建一个连接池"></a>创建一个连接池</h4><ul>
+<li><p>代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">//创建连接池对象
+DruidDataSource ds = new DruidDataSource();
+//从连接池中获取驱动
+ds.setDriverClassName(properties.getProperty("driverClassName"));
+//从连接池中获取链接
+ds.setUrl(properties.getProperty("url"));
+ds.setUsername(properties.getProperty("username"));
+ds.setPassword(properties.getProperty("password"));
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="使用配置文件封装连接池"><a href="#使用配置文件封装连接池" class="headerlink" title="使用配置文件封装连接池"></a>使用配置文件封装连接池</h4><ul>
+<li><p>代码</p>
+</li>
+<li><p>编写配置文件</p>
+<pre class="line-numbers language-properties"><code class="language-properties"><span class="token attr-name">driverClassName</span><span class="token punctuation">=</span><span class="token attr-value">com.mysql.jdbc.Driver</span>
+<span class="token attr-name">url</span><span class="token punctuation">=</span><span class="token attr-value">jdbc:mysql:///test</span>
+<span class="token attr-name">username</span><span class="token punctuation">=</span><span class="token attr-value">root</span>
+<span class="token attr-name">password</span><span class="token punctuation">=</span><span class="token attr-value">123456</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>注意：使用配置文件封装连接池时，配置名必须是以上名称，否则，连接池读取不到配置信息</li>
+</ul>
+</li>
+<li><p>完整封装代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.util;
+
+import com.alibaba.druid.pool.DruidDataSource;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+
+public class DruidUtil {
+    private DruidUtil() {
+    }
+
+    private static DruidDataSource ds = null;
+    /**
+     * 获取驱动，链接的方法
+     */
+    static{
+
+        InputStream is = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("db.properties");
+        Properties properties = new Properties();
+        //创建连接池对象
+        ds = new DruidDataSource();
+        try {
+            properties.load(is);
+            //从连接池中获取驱动
+            ds.setDriverClassName(properties.getProperty("driverClassName"));
+            //从连接池中获取链接
+            ds.setUrl(properties.getProperty("url"));
+            ds.setUsername(properties.getProperty("username"));
+            ds.setPassword(properties.getProperty("password"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * 返回一个Druid的方法
+     */
+    public static DruidDataSource druidDS(){
+        return ds;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>注：以上代码中的<strong>连接池部分</strong>可以继续封装成<strong>工厂</strong>来调用</p>
+</li>
+</ul>
 
                 
             </div>
