@@ -523,7 +523,7 @@ AJAX的引入
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>msg<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">color</span><span class="token punctuation">:</span> red</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>注册<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
-
+      
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
     <span class="token comment" spellcheck="true">/*  判断用户是否存在 */</span>
     <span class="token comment" spellcheck="true">/**
@@ -1085,6 +1085,966 @@ $<span class="token punctuation">.</span><span class="token function">ajax</span
 <h4 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h4><ul>
 <li>由于ajax进行网络通信,js基于浏览器进行网络通信.浏览器出于安全的考虑,浏览器存在一个同源策略。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）</li>
 </ul>
+<hr>
+<h2 id="servlet"><a href="#servlet" class="headerlink" title="servlet"></a>servlet</h2><h4 id="servlet的作用"><a href="#servlet的作用" class="headerlink" title="servlet的作用"></a>servlet的作用</h4><ul>
+<li><p><strong>获取客户的请求信息</strong></p>
+<ul>
+<li><p>Servlet获取客户端的请求信息，基于ServletRequest对象，ServletRequest的子接口: HttpServletRequest。</p>
+<p>HttpServletRequest这个接口包含：客户端的请求参数，客户端的请求头信息。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>向客户端做出响应</strong></p>
+<ul>
+<li><p>Servlet向客户端做出响应，基于ServletResponse对象，ServletResponse的子接口：HttpServletResponse。</p>
+<p>HttpServletResponse这个接口：获取输出流(字节流，字符流)，向客户端返回响应头信息。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="servlet的使用方法"><a href="#servlet的使用方法" class="headerlink" title="servlet的使用方法"></a>servlet的使用方法</h4><ul>
+<li><p>创建servlet的三个步骤</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>导入servlet-api.jar</td>
+<td>在tomcat的lib文件夹下也有此jar包，开发过程中为防止报错需要导入，实际运行时需要移除此jar包避免版本冲突。</td>
+</tr>
+<tr>
+<td>自定义类继承HttpServlet</td>
+<td>继承后，重写service方法。</td>
+</tr>
+<tr>
+<td>配置虚拟路径</td>
+<td>1)可以通过注解配置  2)通过xml形式配置</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>使用注解形式</p>
+<ul>
+<li><p>JavaWeb开发中，Servlet开发配置相对繁琐。在web3.0之后，提供一些简化web配置的数据，@WebServlet就可以取代在web.xml中对servlet的配置</p>
+<pre class="line-numbers language-Java"><code class="language-Java">@WebServlet("/hello")
+public class HelloServlet  extends HttpServlet {
+
+   /**
+ *  该类中的service方法 被调用了，说明什么？
+ *
+ *  这个类 它叫servlet  运行在tomcat服务器内部的小程序
+ *  证明小程序 运行了
+ *
+ *  service 方法被调用，service 方法 是普通方法，应当由对象调用
+ *  因此，Servlet 对象被创建了。
+ *
+ *  who  创建了Servlet 对象 ?
+ *
+ *  Tomcat 服务器 创建的
+ *
+ *  什么时候创建的？ 创建了几个？
+ *
+ * 只有当第一次通过浏览器访问该Servlet的时候，Servlet对象被创建
+ *
+ * 一个 单例模式
+ *
+ *  它怎么创建的 ？
+ *
+ *   通过反射创建的 ,由于通过反射创建对象由两种方式：
+ *   方式一： 通过字节码对象调用newInstance方法   (Class.forName(类的全限定名).newInstance() 前提是类中必须由无参构造)
+ *   方式二：通过构造器对象调用newInstance方法   （Class.forName(类的全限定名).getConstructor(参数.class类型).newInstance(参数值)）
+ *
+ *   Servlet 是通过方式一 创建的对象
+ *
+ *   理由： 第一，在web.xml中告知了servlet的全限定名,所以通过反射 能搞出字节码对象
+ *         第二：Servlet 类中，必须提供一个公共的无参构造器，说明采用的方式是第一种
+ *
+ *
+ * Servlet 的请求流程：
+ *
+ * 1. 当Tomcat服务器启动的时候，去加载web.xml文件
+ * 2. 读取web.xml ，就等同于读取了 servlet 的配置
+ * 3. 把配置信息获取到之后，存入了map 中，以 servlet 的 映射路径为key ， 以 servlet 的全限定名为value
+ * 4. 当用通过浏览器发出对servlet 的请求时，就立刻去map中匹配映射路径的内容如果，匹配成功，则意味着，获取到了servlet 的全限定名
+ * 5. 通过反射创建servlet 的实例。调用init方法，接着调用service
+ *
+ */
+
+    public HelloServlet(){
+        System.out.println("servlet  create  ");
+    }
+
+    // 当请求方式是get 的时候，进入doGet方法处理
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println(“come in”)；
+ }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>使用xml形式</p>
+<ul>
+<li><p>向服务器注册这个Servlet，servlet是要提供服务的</p>
+<ol>
+<li>声明&#x2F;定义servlet类</li>
+<li>servlet提供服务访问方式</li>
+</ol>
+<pre class="line-numbers language-Java"><code class="language-Java">     public HelloServlet(){
+        System.out.println("servlet  create  ");
+    }
+
+    // 当请求方式是get 的时候，进入doGet方法处理
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // 生成动态的web 内容 给浏览器客户端
+        resp.setContentType("text/html;charset=utf8");
+        PrintWriter writer = resp.getWriter();
+        writer.println("<html> <head> <title>这是后台生成的动态web 内容</title></head> <body> "+new Date() +"</body> </html>");
+
+ }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>xml配置</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>HelloServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>com.bjpowernode.servlet.HelloServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>HelloServlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/hello<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>使用注解形式</p>
+<ul>
+<li><p>平时开发中能用注解形式则用注解形式。但如果类是第3方的，由于我们不能去修改第3方的源代码，无法在类上添加注解，则使用xml形式最为合适。例如：后期SpringMVC框架中的核心类DispatcherServlet就是使用的xml形式作为配置</p>
+<pre class="line-numbers language-Java"><code class="language-Java">@WebServlet("/anno")
+public class HelloServlet  extends HttpServlet {
+ 
+    public HelloServlet(){
+        System.out.println("servlet  create  ");
+    }
+
+    // 当请求方式是get 的时候，进入doGet方法处理
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        // 生成动态的web 内容 给浏览器客户端
+        // 告知浏览器 ，响应的数据是什么格式 ，用什么编码打开
+        // 告知浏览器，发送给浏览器的内容的格式以及使用指定的编码进行解析
+        // 这句代码必须要在resp 对象使用之前设置
+        resp.setContentType("text/html;charset=utf8");
+        PrintWriter writer = resp.getWriter();
+        writer.println("<html> <head> <title>这是后台生成的动态web 内容</title></head> <body> "+new Date() +"</body> </html>");
+
+
+    }
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="servlet的生命周期"><a href="#servlet的生命周期" class="headerlink" title="servlet的生命周期"></a>servlet的生命周期</h4><ul>
+<li><p>Servlet的生命周期，是指Servlet的实例的创建到到销毁的过程。</p>
+<pre class="line-numbers language-Java"><code class="language-Java">
+// loadOnStartup 它的配置 是为了改变 servlet单例对象的创建时机 （tomcat服务器启动的时候 ，创建servlet对象）
+@WebServlet(value = "/life",loadOnStartup = 1)
+public class LifeCyleServlet extends HttpServlet {
+
+     // 我们需要弄清楚 这些生命周期方法何时被调用， 才能确定我们可以利用这些方法，做什么事情
+
+    /**
+     *  该servlet 是单例模式
+     *  只有当第一次通过浏览器访问的时候，才被创建出来
+     *  对象被创建出来以后，紧接着会调用init方法，并且init方法只会调用一次
+     *
+     *  然后调用service方法，而service方法的执行时机是每次发送请求给该servlet
+     *  即，service方法， 是用来处理浏览器的每次请求
+     *
+     *
+     *  当服务器正常关闭的时候 ，会调用 destroy方法，非正常关闭服务，则不执行该destroy方法
+     *
+     *
+     *  结论：
+     *
+     *    init方法只执行一次，我们可以用来初始化一些数据
+     *
+     *    根据destory 的特点， 不建议把收尾的工作交给该方法处理
+     *
+     *
+     */
+
+    public LifeCyleServlet(){
+        System.out.println("create  方法");
+    }
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        System.out.println("init 方法");
+        // 假如 在init 方法中做了一个耗时的操作 耗时 5分钟
+
+
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("service 方法");
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("destroy 方法");
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>结论：</p>
+<ol>
+<li>init 方法是初始化servlet的方法，默认第一次访问时初始化，且只会执行一次</li>
+<li>service 方法是每次访问都会调用,会执行多次</li>
+<li>destory 方法，是当服务器正常关闭时调用。执行一次,销毁servlet对象时执行.</li>
+<li>init –&gt; service –&gt; destory</li>
+</ol>
+</li>
+<li><p>注意：</p>
+<ol>
+<li><p>Servlet是单例的模式.一个Servlet只有一个当前类对象.</p>
+</li>
+<li><p>默认init只会在第一次访问时，进行调用。如果希望服务器启动时，就希望调用init方法。</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>servle01<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>com.powernode.servlet.LifeCyleServlet <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!-- 只要大于0 都会在加载完成后调用 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>load-on-startup</span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>load-on-startup</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>如果配置了：<strong>1</strong>则当应用服务器启动时就会调用init方法。</p>
+</li>
+<li><p>也可以在注解中使用：@WebServlet(urlPatterns &#x3D; “&#x2F;servlet”,loadOnStartup &#x3D; 1)</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="servlet的初始化参数"><a href="#servlet的初始化参数" class="headerlink" title="servlet的初始化参数"></a>servlet的初始化参数</h4><ul>
+<li><p>在使用Servlet时，可以配置Servlet的一些初始化参数。为程序提供一些默认的配置。</p>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>web-app</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://xmlns.jcp.org/xml/ns/javaee<span class="token punctuation">"</span></span>
+         <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+         <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd<span class="token punctuation">"</span></span>
+         <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>servle01<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-class</span><span class="token punctuation">></span></span>com.powernode.servlet.ServletLife<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-class</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!-- servlet 默认的配置参数  是 map结构 --></span>
+     <span class="token comment" spellcheck="true">&lt;!--配置初始化参数： 什么是初始化参数？ 当对象被创建之后，就可以获取到这些参数--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init-param</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>encoding<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>utf-8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>init-param</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!-- 以上就是在配置servlet的配置参数 --></span>
+        
+        <span class="token comment" spellcheck="true">&lt;!-- 只要大于0 都会在加载完成后调用 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>load-on-startup</span><span class="token punctuation">></span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>load-on-startup</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-mapping</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>servlet-name</span><span class="token punctuation">></span></span>servle01<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>url-pattern</span><span class="token punctuation">></span></span>/servlet01<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>url-pattern</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>servlet-mapping</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>web-app</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>取值</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class InitParamServlet extends HttpServlet {
+
+ 
+    public InitParamServlet(){
+        System.out.println("create  方法");
+    }
+
+
+     // ServletConfig 这个类的对象 谁创建的 ？ 什么时候创建的？
+     //   tomcat 服务器创建的   在调用init 方法之前创建的 
+    private  ServletConfig config ;
+    /**
+     *
+     * @param config
+     * @throws ServletException
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        System.out.println("init 方法");
+        // 假如 在init 方法中做了一个耗时的操作 耗时 5分钟
+        String encoding = config.getInitParameter("encoding");
+        System.out.println("encoding = " + encoding);
+         this.config = config;
+    }
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("service 方法");
+       // servlet 对象 this
+        String encoding = this.getInitParameter("encoding");
+        System.out.println("encoding = " + encoding);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("destroy 方法");
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<h4 id="servlet的线程安全问题"><a href="#servlet的线程安全问题" class="headerlink" title="servlet的线程安全问题"></a>servlet的线程安全问题</h4><ul>
+<li>Servlet的init方法只会执行一次，Servlet是<strong>单例的</strong>。非线程安全的,当出现并发访问,共享数据无法保证一致性.在使用Servlet不要定义共享成员变量.</li>
+<li>根据上图，Servlet实例是单例，多线程，servlet是<strong>非线程安全</strong>的。</li>
+</ul>
+<h2 id="servlet相关API"><a href="#servlet相关API" class="headerlink" title="servlet相关API"></a>servlet相关API</h2><h4 id="请求信息相关API"><a href="#请求信息相关API" class="headerlink" title="请求信息相关API"></a>请求信息相关API</h4><ul>
+<li><p>在Servlet中,应用服务器将所有的请求信息封装为了HttpServletRequest对象,可以根据HttpServletRequest对象获取请求相关信息.</p>
+<p><img src="/images/servlet/%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E5%9B%BE.png" alt="请求响应"></p>
+</li>
+<li><p><strong>请求参数</strong></p>
+</li>
+<li><p>前端</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/request<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>get<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        账号： <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+        密码：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+        爱好：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hobby<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>java<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>java
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hobby<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>c<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>c
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hobby<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>c#<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>c#
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hobby<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>android <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>登录<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>后台</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.servlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+@WebServlet("/request")
+public class RequestServlet extends HttpServlet {
+     
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+         // 为何 表单中输入中文，接收的时候，是乱码呢？ 因为 tomcat 服务器 是 外国人写的，人家默认使用的编码 为 iso8859-1
+         // 一定要在方法的第一行 增加编码设置 ， 这个编码设置 只针对 post 请求 有效 , get 请求中的乱码 已经被 tomcat服务器高版本（8.0）进行处理
+         req.setCharacterEncoding("utf-8");
+        System.out.println("--------掌握-----------------------");
+        // 获取请求行中的信息
+        // 请求方式
+        String method = req.getMethod();
+        // 请求路径
+        String uri = req.getRequestURI();
+        StringBuffer url = req.getRequestURL();
+        // 协议
+        String protocol = req.getProtocol();
+        System.out.println("method = " + method);
+        System.out.println("uri = " + uri); // 资源的映射路径
+        System.out.println("url = " + url); // 完整路径
+        System.out.println("protocol = " + protocol);
+
+        // 获取请求头的信息
+        String accept = req.getHeader("Accept");
+        System.out.println("accept = " + accept);
+
+        // 获取请求体中的信息
+        String username = req.getParameter("username");
+        System.out.println("username = " + username);
+        String password = req.getParameter("password");
+        System.out.println("password = " + password);
+
+        // getParamter 方法 只能获取 单个值 的情况
+        String hobby = req.getParameter("hobby");
+        System.out.println("hobby = " + hobby);
+
+        // 获取param多个值
+        Map<String, String[]> parameterMap = req.getParameterMap();
+        parameterMap.forEach((x,y)-> System.out.println(x + Arrays.toString(y)));
+
+        System.out.println("---------------不重要----------------------------");
+        //  获取一个key 对应有多个值的情况
+        String[] hobbies = req.getParameterValues("hobby");
+        System.out.println(Arrays.toString(hobbies));
+   }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>设置编码</strong></p>
+<ul>
+<li><p>在Servlet中，Servlet会在第一次获取请求参数时，将网络传输的流数据，解析为map集合。并且默认post请求是按照IOS-8859-1的编码格式进行解析的，以后再次获取请求参数时，直接从map容器中获取请求参数，根据map中key获取,key就是参数名称.</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>如果要设置字符编码，必须在getParameter之前设置，否则由于只会解析一次，map容器就会存放使用IS0-8859-1转换的编码字符串,即Map中可能就是存放乱码数据。</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">//1.修改request对象编码
+ request.setCharacterEncoding("UTF-8");
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>获取请求行信息</strong></p>
+<ul>
+<li><p>获取请求的网络相关信息</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.servlet;
+
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
+
+
+@WebServlet("/api")
+public class ServletApi extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                netInfo(req,resp);
+
+    }
+
+    /**
+     *  网络信息相关的API
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void netInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取 网络请求的请求方法
+        String method = req.getMethod();//GET  POST  DELETE PUT 等等
+        System.out.println("请求方法是:"+method);
+        //获取请求协议
+        String protocol = req.getProtocol();
+        System.out.println("请求协议是:"+protocol);
+        //获取请求的URL
+        StringBuffer url = req.getRequestURL();// 获取请求的URL
+        System.out.println("请求的URL:"+url);
+         //获取请求的资源路径
+        String uri = req.getRequestURI();
+        System.out.println("获取请求的URI:"+uri);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>请求头信息</strong></p>
+<ul>
+<li><p>HttpServletRequest可以获取请求头信息。获取方式主要分为两类：</p>
+<ol>
+<li>根据API提供固有的方法，获取相应的值。</li>
+<li>根据API指定请求头key,获取对应的值。</li>
+</ol>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.servlet;
+
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * @Description: Servlet API的介绍
+ */
+@WebServlet("/api")
+public class ServletApi extends HttpServlet {
+
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+                headerInfo(req,resp);
+
+    }
+
+    /**
+     * 请求头信息
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void headerInfo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //内置的方法
+        String contentType = req.getContentType();
+        System.out.println("contentType : "+ contentType);
+        int contentLength = req.getContentLength();
+        System.out.println("contentLength  "+ contentLength);
+        // 根据指定的头的key  获取对应的值
+        //text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+        String accept = req.getHeader("Accept");
+        System.out.println("accept :"+accept);
+        //获取所有的请求头name值
+        Enumeration<String> headerNames = req.getHeaderNames();
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="响应信息相关的API"><a href="#响应信息相关的API" class="headerlink" title="响应信息相关的API"></a>响应信息相关的API</h4><ul>
+<li><p><strong>设置相应数据编码</strong></p>
+<ul>
+<li><p>设置响应编码，浏览器根据设置的响应编码进行数据解析编码，保证数据避免乱码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">@Override
+protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    //此时指定的是按照 UTF-8编码 指定将字符转化为字节的编码格式
+    resp.setCharacterEncoding("UTF-8");
+    //数据时  html的字符串 按照 UTF-8的编码
+    resp.setContentType("text/html;charset=UTF-8");
+    // tomcat 默认编码 ISO-8859-1
+    //文件是 : UTF-8编码
+    PrintWriter writer = resp.getWriter();
+    writer.print("你好 客户端!!!");
+    writer.flush();
+    writer.close();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>获取响应流的信息</strong></p>
+<ul>
+<li><p>在Servlet响应流信息主要分为2类：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">resp.getOutputStream();// 获取字节网络输出流
+resp.getWriter();// 获取字符网络输出流
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p>字节流 : 多用于文件的下载，处理一些非字符串数据</p>
+</li>
+<li><p>字符流 : 多用于处理文本，主要与ajax结合使用</p>
+</li>
+</ul>
+</li>
+<li><p><strong>验证码案例</strong></p>
+<ul>
+<li><p>使用Hutool的API生成验证码</p>
+</li>
+<li><p>先导入Hutool的jar包</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.hutool.cn/docs/#/">https://www.hutool.cn/docs/#/</a></p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc;
+
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/img")
+public class Img extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //createLineCaptcha(宽度,高度,字符个数,干扰元素个数)
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(300, 100, 4, 6);
+        //验证码图片中字符串 验证码字符串
+        String code = lineCaptcha.getCode();//放在session
+        System.out.println(code);
+        // 把验证码存入到session
+        req.getSession().setAttribute("sessionCode",code);
+        //使用响应流 将验证码图片数据输出
+        lineCaptcha.write(resp.getOutputStream());
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>前端页面代码</strong></p>
+<ul>
+<li><p>使用ajax验证</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>js/jquery-3.6.1.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formId<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/code<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    账号：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    密码：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pwd<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    验证码：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>yzm<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/img<span class="token punctuation">"</span></span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>clickMethod(this)<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100px<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">color</span><span class="token punctuation">:</span> red</span><span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tip<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>butId<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>登陆<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+    window<span class="token punctuation">.</span>onload<span class="token operator">=</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#butId"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            $<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">"/code"</span><span class="token punctuation">,</span><span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#formId"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">function</span> <span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>bol<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"登录成功"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#tip"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>hint<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">function</span> <span class="token function">clickMethod</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        img<span class="token punctuation">.</span>src<span class="token operator">=</span><span class="token string">"/img?time="</span><span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>后台验证代码</strong></p>
+<ul>
+<li><p>代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc;
+
+import com.alibaba.fastjson.JSON;
+import com.powernode.util.JSONUtil;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+@WebServlet("/code")
+public class Code extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("application/json;charset=utf-8");
+        String username = req.getParameter("username");
+        String pwd = req.getParameter("pwd");
+        String yzm = req.getParameter("yzm");
+        JSONUtil jsonUtil = new JSONUtil();
+        if (yzm == null || yzm == ""){
+            String s = JSON.toJSONString(jsonUtil.mick("验证码不能为空"));
+            resp.getWriter().write(s);
+            resp.getWriter().flush();
+            return;
+        }
+        Object sessionCode = req.getSession().getAttribute("sessionCode");
+        if (!yzm.equals(sessionCode)) {
+            String s = JSON.toJSONString(jsonUtil.mick("验证码错误"));
+            resp.getWriter().write(s);
+            resp.getWriter().flush();
+            return;
+        }
+        if (username == null || username == ""){
+            String s = JSON.toJSONString(jsonUtil.mick("账号不能为空"));
+            resp.getWriter().write(s);
+            resp.getWriter().flush();
+            return;
+        }
+        if (pwd == null || pwd == ""){
+            String s = JSON.toJSONString(jsonUtil.mick("密码不能为空"));
+            resp.getWriter().write(s);
+            resp.getWriter().flush();
+            return;
+        }
+
+        if (!username.equals("abc") && !pwd.equals("123")){
+            String s = JSON.toJSONString(jsonUtil.mick("账号或密码错误"));
+            resp.getWriter().write(s);
+            resp.getWriter().flush();
+            return;
+        }else {
+            String s = JSON.toJSONString(jsonUtil);
+            resp.getWriter().write(s);
+            resp.getWriter().flush();
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>定义一个响应的数据类</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.util;
+
+public class JSONUtil {
+    private boolean bol = true;
+    private String hint ;
+
+    public JSONUtil mick(String str){
+        this.hint = str;
+        this.bol = false;
+        return this;
+    }
+
+    public boolean isBol() {
+        return bol;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>效果图</p>
+<p><img src="/images/servlet/%E9%AA%8C%E8%AF%81%E7%A0%81.png" alt="验证码"></p>
+</li>
+</ul>
+</li>
+<li><p><strong>文件的上传和下载</strong></p>
+<ul>
+<li><p>文件上传</p>
+</li>
+<li><p>如果实现文件上传功能 从0到1 去实现，其实是很复杂的， 本质是流的拷贝。难点在读取上传的文件的二进制流，市面上 提供了一个FileUpload 工具类， 来辅助我们完成文件的上传，下载， 今天我们使用更简单的方式，这种方式 只使用与 当前学习的servlet ， 文件上传功能 ，已经被 servlet 3.0以上的版本 支持了</p>
+</li>
+<li><p>前端页面</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/upload<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">enctype</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multipart/form-data<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+选择文件：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fileImg<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>提交<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>后台代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.abc.upload;
+
+import jdk.nashorn.internal.ir.CallNode;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.util.UUID;
+
+@MultipartConfig
+@WebServlet("/upload")
+public class FileUpload extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=utf-8");
+        //使用getPart()方法接收文件
+        Part fileImg = req.getPart("fileImg");
+
+        //获取文件的名字
+        String fileName = fileImg.getSubmittedFileName();
+//        System.out.println(fileName);
+
+        //获取文件的大小
+        long size = fileImg.getSize();
+//        System.out.println(size);
+
+        //获取文件的格式
+        String contentType = fileImg.getContentType();
+//        System.out.println(contentType);
+
+        //文件上传路径
+        String partPath = "D:\\course11\\04-javaweb\\03-ajax&servlet\\uploadproject\\web\\upload";
+
+        //获取文件的后缀名
+        String substring = fileName.substring(fileName.lastIndexOf("."));
+
+        //随机生成一个文件名
+        String newImgName = UUID.randomUUID().toString();
+
+        //生成新的文件名
+        String name = newImgName + "." + substring;
+
+        //上传文件
+        fileImg.write(partPath + "/" + name);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>文件下载</p>
+<ul>
+<li><p>前端页面</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+点击下载资源：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/download?filename<span class="token punctuation">=</span>1.jpg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>1.jpg<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>后台代码</p>
+<pre class="line-numbers language-Java"><code class="language-Java">package com.powernode.servlet;
+
+import com.sun.javaws.HtmlOptions;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+
+@WebServlet("/download")
+public class Download extends HttpServlet {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取下载文件的名称
+        String filename = req.getParameter("filename");
+        //获取下载文件的文件夹的路径
+        String path = "D:\\course11\\04-javaweb\\03-ajax&servlet\\downloadpeoject\\web\\download";
+        //获取下载文件的路径
+        String filePath = path + "/" + filename;
+
+        // URLEncoder.encode(fileName,"utf-8") 把编码记性设置 ， 必须要在 设置头信息的 同时 去修改编码
+        //  通过header 修改了 下载的文件的名称  如果不设置 header 它会使用默认名称 来作为下载文件的名称 （download）
+        resp.setHeader("Content-Disposition","attachment;filename="+ URLEncoder.encode(filename,"utf-8") );
+
+        //下载的本质是copy，利用流来进行下载
+        //创建文件输入流
+        FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+
+        //使用浏览器的默认下载路径
+        ServletOutputStream outputStream = resp.getOutputStream();
+        int len = 0;
+        byte[] bytes = new byte[1024];
+        while ((len = fileInputStream.read(bytes)) != -1){
+            outputStream.write(bytes,0,len);
+            outputStream.flush();
+        }
+        outputStream.close();
+        fileInputStream.close();
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="请求转发和重定向"><a href="#请求转发和重定向" class="headerlink" title="请求转发和重定向"></a>请求转发和重定向</h2><h4 id="请求转发"><a href="#请求转发" class="headerlink" title="请求转发"></a>请求转发</h4><ul>
+<li><p>浏览器发出一个请求，由一个AServlet 进行接收处理，最后没有处理完毕，然后它（AServlet） 转交交给 （BServlet） 进行处理,把 AServlet 转交给 BServlet 这个动作叫请求转发</p>
+</li>
+<li><p>API:  </p>
+<pre class="line-numbers language-Java"><code class="language-Java">request.getRequestDispatcher("跳转的路径").forward(request,response);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>请求转发的特点</strong></p>
+<ol>
+<li>只发送一次请求</li>
+<li>响应到浏览器的结果是一最后的servlet 为准</li>
+<li>可以共享地址栏中的参数信息</li>
+<li>可以访问 WEB-INF 下面的资源</li>
+<li>不可以访问 站外资源 (不能跨域)</li>
+<li>可以共享request 域对象的数据</li>
+</ol>
+</li>
+</ul>
+<h4 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h4><ul>
+<li><p>浏览器发送请求到 a servlet ，然后 a servlet 完成一部分需求，告知浏览器，b  servlet 能完成剩余的需求，因此，浏览器 会 再一次发送请求 到 b servlet 最终 完成了 整个请求</p>
+</li>
+<li><p>API： </p>
+<pre class="line-numbers language-Java"><code class="language-Java">response.sendRedirect("跳转路径")
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>重定向的特点</strong></p>
+<ol>
+<li>发送了多次请求（至少两次）</li>
+<li>不能共享地址栏中的参数信息</li>
+<li>最终显示的结果 以最后一个Servlet (和请求转发的特点一样)</li>
+<li>不能访问WEB-INF 下面的资源</li>
+<li>可以访问站外资源</li>
+<li>不可以共享request 域对象中的数据</li>
+</ol>
+</li>
+</ul>
+<h4 id="请求转发和重定向的选择"><a href="#请求转发和重定向的选择" class="headerlink" title="请求转发和重定向的选择"></a>请求转发和重定向的选择</h4><ol>
+<li><p>如果需要访问WEB-INF下面的资源 ，则 必须使用 请求转发</p>
+</li>
+<li><p>如果需要访问站外资源，则必须使用 重定向</p>
+</li>
+<li><p>其它，则可以 随便使用</p>
+</li>
+</ol>
+<ul>
+<li><p>一般是这样用的：如果地址栏的地址 应该 发生变化，则使用重定向 </p>
+</li>
+<li><p>如果地址栏的地址，可以 不用变化，也能理解 则使用请求转发</p>
+</li>
+</ul>
+<h4 id="转发与重定向的应用场景"><a href="#转发与重定向的应用场景" class="headerlink" title="转发与重定向的应用场景"></a>转发与重定向的应用场景</h4><ul>
+<li>应用场景：登录、购物车结算采用重定向，其他一律采用转发。</li>
+</ul>
+<h2 id="servlet的三大作用域"><a href="#servlet的三大作用域" class="headerlink" title="servlet的三大作用域"></a>servlet的三大作用域</h2><h4 id="域对象的理解"><a href="#域对象的理解" class="headerlink" title="域对象的理解"></a>域对象的理解</h4><ul>
+<li>域对象 ： 存储数据的容器</li>
+<li>Servlet 中 有 4 个 能存储数据的 容器 （域对象）</li>
+<li>PageContext  Request Session  ServletContext (Application)</li>
+<li>容器（域对象）的容量大小 是一样的，不同容器(域对象)的区别<ul>
+<li>Request : 一次请求中有效 （只在请求转发中使用）</li>
+<li>Session: 一次会话中有效 (从浏览器打开，到关闭 称为一次会话)</li>
+<li>ServletContext (Application): 当前应用 (项目开启 到 关闭)</li>
+</ul>
+</li>
+<li>共同操作域对象 的API： <ul>
+<li>存：setAttribute（key,value）</li>
+<li>取：getAttribute（key）</li>
+</ul>
+</li>
+<li>获取Reqeust 对象  ： 直接使用</li>
+<li>获取Session 对象 ：  request.getSession():</li>
+<li>获取ServletContext 对象： request.getServletContext(): (上下文)</li>
+</ul>
+<h4 id="作用域的选择"><a href="#作用域的选择" class="headerlink" title="作用域的选择"></a>作用域的选择</h4><ul>
+<li><p>能用小的 绝不用大的，够用原则:</p>
+</li>
+<li><p>Request &lt; session &lt; ServletContext</p>
+</li>
+</ul>
 
                 
             </div>
@@ -1111,7 +2071,7 @@ $<span class="token punctuation">.</span><span class="token function">ajax</span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://stars998.github.io/2022/09/01/AJAX/">https://stars998.github.io/2022/09/01/AJAX/</a>
+                    <a href="https://stars998.github.io/2022/09/01/ajax&servlet/">https://stars998.github.io/2022/09/01/ajax&servlet/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1231,18 +2191,17 @@ $<span class="token punctuation">.</span><span class="token function">ajax</span
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/09/01/AJAX/">
+                <a href="/2022/09/12/Vue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="AJAX">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Vue">
                         
-                        <span class="card-title">AJAX</span>
+                        <span class="card-title">Vue</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1252,9 +2211,9 @@ $<span class="token punctuation">.</span><span class="token function">ajax</span
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-01
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1263,12 +2222,11 @@ $<span class="token punctuation">.</span><span class="token function">ajax</span
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/AJAX%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">AJAX学习笔记</span>
+                    <a href="/tags/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">Vue学习笔记</span>
                     </a>
                     
                 </div>

@@ -1361,6 +1361,27 @@ Public <span class="token keyword">static</span> <span class="token keyword">int
 </li>
 </ul>
 </li>
+<li><p><strong>手写冒泡排序</strong></p>
+<pre class="line-numbers language-Java"><code class="language-Java">public static void bubbleSort(int[] arr){
+        //外部共需要排序length-1次
+        for (int i = 0; i < arr.length-1; i++) {
+            boolean b = true;
+            //内部比较第一次比较length-1次，随后逐次减一
+            for (int j = 0; j < arr.length-1-i; j++) {
+                if (arr[j] > arr[j+1]){
+                    int num = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = num;
+                    b = false;
+                }
+            }
+            if (b){
+                return;
+            }
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 <h4 id="二维数组（矩阵，较难）"><a href="#二维数组（矩阵，较难）" class="headerlink" title="二维数组（矩阵，较难）"></a>二维数组（矩阵，较难）</h4><ol>
 <li><p>二维数组的定义</p>
@@ -2689,7 +2710,7 @@ Scanner input = new Scanner(System.in);
 <li><strong>总结：多态情况下操作成员变量，则编译和运行都检查“编译时类型”。</strong></li>
 </ol>
 <h4 id="abstract的引入"><a href="#abstract的引入" class="headerlink" title="abstract的引入"></a>abstract的引入</h4><ol>
-<li>需求：在动力节点中，有讲师和助教两个工种，他们都具备工作的能力。</li>
+<li>需求：在教师职业中，有讲师和助教两个工种，他们都具备工作的能力。</li>
 <li>实现：定义讲师类（Teacher）和助教类（Assistant），然后分别提供work()的方法。</li>
 <li>问题：讲师类和助教类都有work()方法，也就是讲师类和助教类都有相同的代码，因此我们需要实现代码的复用。</li>
 <li>解决：使用“继承”来实现。定义一个员工类（Employee），并且给员工类提供work()方法，然后让讲师类和助教类继承于员工类，并重写员工类中的work()方法。</li>
@@ -3180,11 +3201,11 @@ public abstract double doubleValue(); --> 把数值型包装类对象转化为do
 <li><p>明确：<strong>使用包装类提供的parseXxx(String str)的静态方法来实现。</strong></p>
 <pre class="line-numbers language-java"><code class="language-java">Byte	    <span class="token keyword">static</span> <span class="token keyword">byte</span> <span class="token function">parseByte</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	        <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制byte 。</span>
 Short	    <span class="token keyword">static</span> <span class="token keyword">short</span> <span class="token function">parseShort</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	    <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制short 。</span>
-Integer	<span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	        <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制int。</span>
+Integer		<span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	        <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制int。</span>
 Long	    <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">parseLong</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> 	    <span class="token comment" spellcheck="true">//将字符串参数解析为带符号的十进制long。</span>
 Float	    <span class="token keyword">static</span> <span class="token keyword">float</span> <span class="token function">parseFloat</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	    <span class="token comment" spellcheck="true">//返回一个新 float值，该值被初始化为用指定字符串表示的值。</span>
 Double	    <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">parseDouble</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	    <span class="token comment" spellcheck="true">//返回一个新 double值，该值被初始化为用指定字符串表示的值。</span>
- Boolean	<span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">parseBoolean</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	<span class="token comment" spellcheck="true">//将字符串参数解析为boolean值。</span>
+Boolean		<span class="token keyword">static</span> <span class="token keyword">boolean</span> <span class="token function">parseBoolean</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span>	<span class="token comment" spellcheck="true">//将字符串参数解析为boolean值。</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>注意事项：</p>
@@ -3202,11 +3223,11 @@ Double	    <span class="token keyword">static</span> <span class="token keyword"
 <pre class="line-numbers language-java"><code class="language-java">所有包装类	String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>	                返回对象的字符串表示形式。
 Byte	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">byte</span> b<span class="token punctuation">)</span>	    把<span class="token keyword">byte</span>类型转化为字符串返回。
 Short	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">short</span> s<span class="token punctuation">)</span>	    把<span class="token keyword">short</span>类型转化为字符串返回。
-Integer	<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>	    把<span class="token keyword">int</span>类型转化为字符串返回。
+Integer		<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span>	    把<span class="token keyword">int</span>类型转化为字符串返回。
 Long	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">long</span> i<span class="token punctuation">)</span>	    把<span class="token keyword">long</span>类型转化为字符串返回。
 Float	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">float</span> f<span class="token punctuation">)</span>	    把<span class="token keyword">float</span>类型转化为字符串返回。
 Double	    <span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">double</span> d<span class="token punctuation">)</span>	把<span class="token keyword">double</span>类型转化为字符串返回。
-Boolean	<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> b<span class="token punctuation">)</span>	把<span class="token keyword">boolean</span>类型转化为字符串返回。
+Boolean		<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> b<span class="token punctuation">)</span>	把<span class="token keyword">boolean</span>类型转化为字符串返回。
 Character	<span class="token keyword">static</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token keyword">char</span> c<span class="token punctuation">)</span>	    把<span class="token keyword">char</span>类型转化为字符串返回。
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
