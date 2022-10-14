@@ -3927,9 +3927,9 @@ Public <span class="token keyword">void</span> <span class="token function">add<
 </li>
 </ul>
 <h4 id="HashMap类"><a href="#HashMap类" class="headerlink" title="HashMap类"></a>HashMap类</h4><ul>
-<li><p>是Map 接口的实现类</p>
+<li><p>是Map接口的实现类</p>
 </li>
-<li><p>底层是哈希表</p>
+<li><p>底层是数组+链表，1.8后加入了红黑树</p>
 </li>
 <li><p>线程不安全的，安全性低，效率高</p>
 </li>
@@ -3944,6 +3944,12 @@ Public <span class="token keyword">void</span> <span class="token function">add<
 </ul>
 <h4 id="LinkdHashMap类"><a href="#LinkdHashMap类" class="headerlink" title="LinkdHashMap类"></a>LinkdHashMap类</h4><ul>
 <li>保证了存储元素时的有序性。</li>
+</ul>
+<h4 id="Hashtable类"><a href="#Hashtable类" class="headerlink" title="Hashtable类"></a>Hashtable类</h4><ul>
+<li>线程安全的</li>
+<li>hashtable保证线程安全是因为给每个方法都加上了锁，这就导致哈希表中就只有一个锁，若有多个线程争夺锁的时候，只要有一个线程得到锁，那么其他的线程就会阻塞等待，在效率上就会很低。</li>
+<li>初始容量为11，负载因子0.75，</li>
+<li>扩容后：新容量 &#x3D; 旧容量 * 2  + 1</li>
 </ul>
 <h4 id="TreeMap类"><a href="#TreeMap类" class="headerlink" title="TreeMap类"></a>TreeMap类</h4><ol>
 <li>是Map接口的实现类</li>
